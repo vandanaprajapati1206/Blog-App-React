@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Alert from "./Alert";
-import BlogList from "./BlogList";
-import getLocalStorage from "./getLocalStorage";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import getLocalStorage from "../getLocalStorage";
+import Alert from "../Alert";
 
-export default function Blogs() {
+const AddBlog = () => {
   const [list, setList] = useState(getLocalStorage());
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -14,7 +14,6 @@ export default function Blogs() {
 
   function handleAddBlog(e) {
     e.preventDefault();
-
     console.log("handle Submit...!", name, desc, category);
 
     if (!name && !desc && !category) {
@@ -65,31 +64,22 @@ export default function Blogs() {
     }
   }
 
-  const remItem = (id) => {
-    showAlert(true, "danger", "remove item");
-    setList(list.filter((i) => i.id !== id));
-  };
-
-  const updateItem = (id) => {
-    const selectedItem = list.find((i) => i.id === id);
-    setIsEdit(true);
-    setEditId(id);
-    setName(selectedItem.title);
-    setDesc(selectedItem.desc);
-    setCategory(selectedItem.category);
-  };
-
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
-
   useEffect(() => {
     localStorage.setItem("blog", JSON.stringify(list));
   }, [list]);
 
   return (
     <section>
-      <h1 style={{ color: "darkmagenta" }}>Blog Application</h1>
+      <hr />
+      <h2 style={{ color: "darkmagenta" }}>Add Blog</h2>
+      <nav>
+        <Link to="/blog-list"> Blog list</Link>
+      </nav>
+      <hr />
+
       <form onSubmit={handleAddBlog}>
         {alert.show && <Alert {...alert} remAlert={showAlert} />}
 
@@ -169,41 +159,22 @@ export default function Blogs() {
             </tr>
             <tr>
               <th colSpan={3}>
-                {isEdit ? (
-                  <button
-                    type="submit"
-                    style={{ color: "white", backgroundColor: "#8b008b" }}
-                  >
-                    Edit Blog
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    style={{
-                      color: "midnightblue",
-                      backgroundColor: "#ffd2fd",
-                    }}
-                  >
-                    Add Blog
-                  </button>
-                )}
+                <button
+                  type="submit"
+                  style={{
+                    color: "midnightblue",
+                    backgroundColor: "#ffd2fd",
+                  }}
+                >
+                  Add Blog
+                </button>
               </th>
               <th></th>
             </tr>
           </tbody>
         </table>
       </form>
-
-      {list.length > 0 && (
-        <div>
-          <hr />
-          <h2 style={{ color: "darkmagenta" }}>Blog List</h2>
-          <hr />
-          <BlogList item={list} remItem={remItem} updateItem={updateItem} />
-       
-
-        </div>
-      )}
     </section>
   );
-}
+};
+export default AddBlog;

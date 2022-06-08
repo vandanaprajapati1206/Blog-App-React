@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const BlogList = ({ item, remItem, updateItem }) => {
   const [search, setSearch] = useState("");
@@ -11,10 +12,10 @@ const BlogList = ({ item, remItem, updateItem }) => {
         placeholder="Search Title"
         onChange={(e) => setSearch(e.target.value)}
       />
-      <span>Search by Category : </span>
-      <select
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      {/* <span>Search by Category : </span>
+      <select onChange={(e) => setSearch(e.target.value)} /> */}
+      <br />
+
       <article>
         <table
           style={{
@@ -52,14 +53,16 @@ const BlogList = ({ item, remItem, updateItem }) => {
                     <th>{desc}</th>
                     <th>{category}</th>
                     <th>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          updateItem(id);
-                        }}
-                      >
-                        <FaEdit />
-                      </button>
+                      <Link to={`/edit-blog/${id}`}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            updateItem(id);
+                          }}
+                        >
+                          <FaEdit />
+                        </button>
+                      </Link>
                     </th>
                     <th>
                       <button type="button" onClick={() => remItem(id)}>
