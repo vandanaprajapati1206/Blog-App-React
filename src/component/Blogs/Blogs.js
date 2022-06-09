@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Alert from "../Alert";
 import BlogList from "./BlogList";
-import getLocalStorage from "../getLocalStorage";
-import AddBlog from "./AddBlog";
+import getLocalStorage from "./getLocalStorage";
+
 import { Link } from "react-router-dom";
 
 export default function Blogs() {
@@ -16,9 +16,7 @@ export default function Blogs() {
 
   // function handleAddBlog(e) {
   //   e.preventDefault();
-
   //   console.log("handle Submit...!", name, desc, category);
-
   //   if (!name && !desc && !category) {
   //     showAlert(
   //       true,

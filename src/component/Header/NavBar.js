@@ -1,7 +1,8 @@
-import React from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
 
-export default function Header() {
+import React from "react";
+import {  NavLink, Outlet } from "react-router-dom";
+
+export default function NavBar() {
   return (
     <div>
       <h1 style={{ color: "darkmagenta" }}>Blog Application</h1>
@@ -20,27 +21,35 @@ export default function Header() {
             style={({ isActive }) => {
               return { color: isActive ? "blue" : "" };
             }}
-            to="/"
+            to="/user/myblog"
           >
-            Sign In
+            My Blogs
           </NavLink>{" "}
           || ||
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "blue" : "" };
             }}
-            to="/sign-up"
+            to="/user/blog-list"
           >
-            Sign Up
+            All Blogs
           </NavLink>
           || ||
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "blue" : "" };
             }}
-            to="/contact-us"
+            to="/user/add-blog"
           >
-            Contact Us
+            Add Blog
+          </NavLink>{" "}
+          || ||
+          <NavLink
+            style={({ isActive }) => {
+              return { color: isActive ? "blue" : "" };
+            }}
+          >
+            Log Out
           </NavLink>
         </nav>
       </div>

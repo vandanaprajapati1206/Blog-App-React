@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import getLocalStorage from "../getLocalStorage";
+import getLocalStorage from "./getLocalStorage";
 import Alert from "../Alert";
+import Select from "react-select";
+import { options } from "../Options";
 
 const AddBlog = () => {
   const [list, setList] = useState(getLocalStorage());
@@ -76,7 +78,7 @@ const AddBlog = () => {
       <hr />
       <h2 style={{ color: "darkmagenta" }}>Add Blog</h2>
       <nav>
-        <Link to="/blog-list"> Blog list</Link>
+        <Link to="/user/blog-list"> Blog list</Link>
       </nav>
       <hr />
 
@@ -129,6 +131,12 @@ const AddBlog = () => {
               </th>
               <th>:</th>
               <th>
+              {/* <Select
+                options={options}
+                isMulti={true}
+                _default={options.map(({ label }) => label)}
+                onChange={setCategory}
+              /> */}
                 <select
                   name="list"
                   value={category}

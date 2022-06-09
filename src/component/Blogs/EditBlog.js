@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import getLocalStorage from "../getLocalStorage";
+import getLocalStorage from "./getLocalStorage";
 import Alert from "../Alert";
 import { Link } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
 
-
-const EditBlog=({id, updateItems})=> {
+const EditBlog = ({ id, updateItems }) => {
   const [list, setList] = useState(getLocalStorage());
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -13,9 +12,8 @@ const EditBlog=({id, updateItems})=> {
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
-  
-  const navigate= useNavigate()
 
+  const navigate = useNavigate();
 
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
@@ -23,14 +21,10 @@ const EditBlog=({id, updateItems})=> {
 
   return (
     <section>
-       <hr />
-          <h2 style={{ color: "darkmagenta" }}> Edit Blog</h2>
-          {/* <button onClick={()=>{
-        navigate(-1)
-      }}> Go Back</button> */}
-
-          <hr />
-      <form >
+      <hr />
+      <h2 style={{ color: "darkmagenta" }}> Edit Blog</h2>
+      <hr />
+      <form>
         {alert.show && <Alert {...alert} remAlert={showAlert} />}
 
         <table
@@ -112,8 +106,8 @@ const EditBlog=({id, updateItems})=> {
                 <button
                   type="submit"
                   style={{ color: "white", backgroundColor: "#8b008b" }}
-                  onClick={()=>{
-                    navigate('/blog-list')
+                  onClick={() => {
+                    navigate("/user/blog-list");
                   }}
                 >
                   Edit Blog
@@ -126,5 +120,5 @@ const EditBlog=({id, updateItems})=> {
       </form>
     </section>
   );
-}
-export default EditBlog
+};
+export default EditBlog;

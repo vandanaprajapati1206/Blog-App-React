@@ -34,6 +34,7 @@ const BlogList = ({ item, remItem, updateItem }) => {
               <th colSpan="2">Action</th>
             </tr>
           </thead>
+          
           {item
             .filter((blog) => {
               if (search === "") {
@@ -53,7 +54,7 @@ const BlogList = ({ item, remItem, updateItem }) => {
                     <th>{desc}</th>
                     <th>{category}</th>
                     <th>
-                      <Link to={`/edit-blog/${id}`}>
+                      <Link to={`/user/edit-blog/${id}`}>
                         <button
                           type="button"
                           onClick={() => {
