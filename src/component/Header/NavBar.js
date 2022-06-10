@@ -1,11 +1,23 @@
-
+import { Button } from "bootstrap";
 import React from "react";
-import {  NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar({logout,props}) {
+  const nav = useNavigate()
+  const { username, email, city, phone } =
+    (props.location && props.location.state) || {};
+
+  function handelLogOut() {
+    logout()
+    nav('/')
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("password");
+  }
+
   return (
     <div>
       <h1 style={{ color: "darkmagenta" }}>Blog Application</h1>
+
       <div
         style={{
           display: "flex",
@@ -42,17 +54,14 @@ export default function NavBar() {
             to="/user/add-blog"
           >
             Add Blog
-          </NavLink>{" "}
-          || ||
-          <NavLink
-            style={({ isActive }) => {
-              return { color: isActive ? "blue" : "" };
-            }}
-          >
-            Log Out
           </NavLink>
         </nav>
       </div>
+  
+  {props.user_data}
+     
+        <button onClick={handelLogOut} style={{marginLeft:'50%' }}>Log Out</button>
+    
       <Outlet />
     </div>
   );

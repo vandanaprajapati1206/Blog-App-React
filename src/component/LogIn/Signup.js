@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import "./login.css";
@@ -8,26 +8,16 @@ import Alert from "../Alert";
 import Blogs from "../Blogs/Blogs";
 import { options } from "../Options";
 
-// const getLocalStorageSignUp = () => {
-//   let signup = localStorage.getItem("SignUp");
-//   if (signup) {
-//     return JSON.parse(localStorage.getItem("SignUp"));
-//   } else {
-//     return [];
-//   }
-// };
+const getLocalStorageSignUp = () => {
+  let signup = localStorage.getItem("SignUp");
+  if (signup) {
+    return JSON.parse(localStorage.getItem("SignUp"));
+  } else {
+    return [];
+  }
+};
 
-
-export default function Signup() {
-  // const [user, setUser] = useState({
-  //   name: "",
-  //   email: "",
-  //   phone: "",
-  //   password: "",
-  //   desc: "",
-  //   intrest: null,
-  //   gender: "",
-  // });
+export default function Signup({ auth }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -37,9 +27,10 @@ export default function Signup() {
   const [gender, setGender] = useState("");
 
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
-  const [signup, setSignup] = useState(true);
-  const [emailIsValid, setEmailIsValid] = useState("");
-const navigate= useNavigate()
+  const [signup, setSignup] = useState(getLocalStorageSignUp());
+
+  const navigate = useNavigate();
+
   function handleSingUp(e) {
     e.preventDefault();
     console.log(
@@ -52,13 +43,31 @@ const navigate= useNavigate()
       intrest,
       gender
     );
+    if (!email || !phone || !password) {
+      showAlert(true, "danger", " Email ,Phone and Password Requierd..!");    
+    } else if (email && phone && password) {
 
-    if (!email) {
-      showAlert(true, "danger", " Email Requierd..!");
-    } else if (!phone) {
-      showAlert(true, "danger", " Phone No. Requierd..!");
+      localStorage.setItem("Email", JSON.stringify(email));
+      localStorage.setItem("Password", JSON.stringify(password));
+      console.log("Saved in Local Storage");
+      let user_data = {
+        email: email,
+        phone: phone,
+        password: password,
+      };
+      let user_data_str = JSON.stringify(user_data);
+      let clientsArr = JSON.parse(localStorage.getItem("usersSignup")) || [];
+      
+      const userExists = clientsArr.find(
+        (user) => JSON.stringify(user) === user_data_str
+      );
+      if (userExists) {
+        showAlert(true, "danger", " User already exists..!");
+      } else {
+        clientsArr.push(user_data);
+        localStorage.setItem("usersSignup", JSON.stringify(clientsArr));
+      }
     } else {
-      showAlert(true, "success", "Success Sign Up");
       
       const newItem = {
         id: new Date().getTime().toString(),
@@ -70,11 +79,14 @@ const navigate= useNavigate()
         password: password,
         intrest: intrest,
       };
-      // setSignup([...signup, newItem]);
-
       localStorage.setItem("users", JSON.stringify([newItem]));
-    
+      localStorage.setItem("Email", JSON.stringify(email));
+      localStorage.setItem("Password", JSON.stringify(password));
       console.log("Saved in Local Storage");
+      sessionStorage.setItem("email", email);
+      sessionStorage.setItem("password", password);
+      console.log("Saved in Session Storage");
+      auth();
       setName("");
       setEmail("");
       setDesc("");
@@ -83,21 +95,13 @@ const navigate= useNavigate()
       setPassword("");
       setIntrest("");
       setSignup(!signup);
-      navigate('/user')
+      navigate("/user");
     }
   }
 
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
-
-  useEffect(() => {
-    const localStorageItems = JSON.parse(localStorage.getItem("users"))
-    console.log(localStorageItems);
-        if (localStorageItems) {
-            setSignup(localStorageItems);
-        }
-  }, []);
 
   return (
     <div>

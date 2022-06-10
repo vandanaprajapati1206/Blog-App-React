@@ -12,8 +12,6 @@ const BlogList = ({ item, remItem, updateItem }) => {
         placeholder="Search Title"
         onChange={(e) => setSearch(e.target.value)}
       />
-      {/* <span>Search by Category : </span>
-      <select onChange={(e) => setSearch(e.target.value)} /> */}
       <br />
 
       <article>
@@ -30,12 +28,12 @@ const BlogList = ({ item, remItem, updateItem }) => {
             <tr>
               <th>Title</th>
               <th>Description</th>
-              <th>category</th>
-              <th colSpan="2">Action</th>
+              <th>Category</th>
+              {/* <th colSpan="2">Action</th> */}
             </tr>
           </thead>
           
-          {item
+          {/* {item
             .filter((blog) => {
               if (search === "") {
                 return blog;
@@ -71,9 +69,11 @@ const BlogList = ({ item, remItem, updateItem }) => {
                       </button>
                     </th>
                   </tr>
-                </tbody>
+                </tbody> 
               );
-            })}
+            }
+            )
+            } */}
         </table>
       </article>
     </div>

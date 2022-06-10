@@ -10,7 +10,7 @@ const Alert = ({ type, msg, remAlert, list }) => {
   return (
     <div>
       {`${type}` === "danger" ? (
-        <p style={{ color: "red" }}>{msg}</p>
+        <h1 style={{ color: "red" }}>{msg}</h1>
       ) : (
         <p style={{ color: "green" }}>{msg}</p>
       )}

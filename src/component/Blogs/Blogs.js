@@ -90,7 +90,8 @@ export default function Blogs() {
   return (
     <section>
       
-      {/* <form onSubmit={handleAddBlog}>
+      <div>
+ {/* <form onSubmit={handleAddBlog}>
         {alert.show && <Alert {...alert} remAlert={showAlert} />}
 
         <table
@@ -132,7 +133,6 @@ export default function Blogs() {
                 />
               </th>
             </tr>
-
             <tr>
               <th>
                 <label>Blog Category </label>
@@ -192,15 +192,14 @@ export default function Blogs() {
             </tr>
           </tbody>
         </table>
-      </form> */}
-
+      </form> */}  
+      </div>
+    
       {list.length > 0 && (
         <div>
           <hr />
           <h2 style={{ color: "darkmagenta" }}>Blog List</h2>
-          <nav>
-            <Link to="/add-blog"> Add New Blog</Link>
-          </nav>
+    
           <hr />
           <BlogList item={list} remItem={remItem} updateItem={updateItem} />
         </div>

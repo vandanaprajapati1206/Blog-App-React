@@ -1,42 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import Alert from "../Alert";
 import Blogs from "../Blogs/Blogs";
 
-export default function Login() {
+export default function Login({ auth }) {
   const [emaillog, setEmaillog] = useState("");
   const [passwordlog, setPasswordlog] = useState("");
-
   const [blog, setBlog] = useState(true);
-
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
 
   const navigate = useNavigate();
-
   function handleSingIn(e) {
     e.preventDefault();
     console.log("Login : ", emaillog, passwordlog);
 
-    let email = localStorage.getItem("email").replace(/"/g, " ");
-    let pass = localStorage.getItem("password").replace(/"/g, " ");
-
-    if (!emaillog && !passwordlog) {
-      setAlert(true, "danger", " Email  and Password Requierd..!");
-    } else if (!emaillog) {
-      showAlert(true, "danger", " Email Requierd..!");
-    } else if (!passwordlog) {
-      showAlert(true, "danger", " Password Requierd..!");
+    let email = localStorage.getItem("Email").replace(/"/g, "");
+    let pass = localStorage.getItem("Password").replace(/"/g, "");
+    
+    if (!emaillog || !passwordlog) {
+      showAlert(true, "danger", "EMPTY Email and Password");
+      console.log("EMPTY");
     } else if (passwordlog !== pass || emaillog !== email) {
-      showAlert(true, "danger", "");
+      showAlert(true, "danger", "Wrong Email and Password");
     } else {
-      showAlert(true, "success", "SuccessFully Sign In");
-      setBlog(!blog);
+     
       setEmaillog();
       setPasswordlog();
-      navigate("/user/blog-list");
+      auth();
+      sessionStorage.setItem("LogInEmail", emaillog);
+      sessionStorage.setItem("LogInPassword", passwordlog);
+      console.log("Saved in Session Storage");
+       setBlog(!blog);
+       navigate("/user");
     }
   }
   const showAlert = (show = false, type = "", msg = "") => {
@@ -85,9 +83,9 @@ export default function Login() {
               />
               <br></br>
 
-              <button variant="outline-success" size="lg" type="submit">
+              <Button variant="outline-success" size="lg" type="submit">
                 Sign In
-              </button>
+              </Button>
             </div>
           </form>
         ) : (
@@ -96,7 +94,7 @@ export default function Login() {
       </div>
 
       <nav>
-        <span>click here for </span>
+        <span>Click Here For </span>
         <Link to="/sign-up"> Sign Up</Link>
       </nav>
     </div>

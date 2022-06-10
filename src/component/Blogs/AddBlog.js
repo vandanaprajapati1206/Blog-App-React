@@ -77,9 +77,9 @@ const AddBlog = () => {
     <section>
       <hr />
       <h2 style={{ color: "darkmagenta" }}>Add Blog</h2>
-      <nav>
+      {/* <nav>
         <Link to="/user/blog-list"> Blog list</Link>
-      </nav>
+      </nav> */}
       <hr />
 
       <form onSubmit={handleAddBlog}>
