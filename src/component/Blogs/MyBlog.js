@@ -15,16 +15,13 @@ export default function MyBlog({ item, remItem, updateItem }) {
         <div>
           <hr />
           <h2 style={{ color: "darkmagenta" }}>My Blog List</h2>
-          <nav>
-            <Link to="/user/add-blog"> Add New Blog</Link>
-          </nav>
+          
           <hr />
           <input
             placeholder="Search Title"
             onChange={(e) => setSearch(e.target.value)}
           />
           <br />
-
           <article>
             <table
               style={{

@@ -13,28 +13,64 @@ export default function Login({ auth }) {
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
 
   const navigate = useNavigate();
+
   function handleSingIn(e) {
     e.preventDefault();
     console.log("Login : ", emaillog, passwordlog);
 
-    let email = localStorage.getItem("Email").replace(/"/g, "");
-    let pass = localStorage.getItem("Password").replace(/"/g, "");
-    
+    let olddata = localStorage.getItem("usersSignup");
+    let oldArr = JSON.parse(olddata);
+
+    // oldArr.map((arr) => {
+    //   if (emaillog.length > 0  && !passwordlog.length > 0)
+    //   {
+    //     showAlert(true, "danger", "EMPTY Email and Password");
+    //     console.log("EMPTY", (emaillog.length > 0 && passwordlog.length > 0));
+    //     if (arr.emaillog == emaillog && arr.password == passwordlog)
+    //     {
+    //       console.log(arr.emaillog == emaillog && arr.password == passwordlog);
+    //       sessionStorage.setItem("LogInEmail", emaillog);
+    //       sessionStorage.setItem("LogInPassword", passwordlog);
+    //       console.log("Saved in Session Storage");
+    //       let user = emaillog;
+    //       navigate.push({ pathname: "/blogs", user: emaillog });
+    //     } else {
+    //       showAlert(true, "danger", "Wrong Email and Password");
+    //     }
+    //   }
+    // });
+
+    let pass = oldArr.filter((obj) => {
+      return obj.email === emaillog;
+    });
+    let email = oldArr.filter((obj) => {
+      return obj.password === passwordlog;
+    });
+
+    console.log(!emaillog || !passwordlog);
+    console.log(
+      email,
+      pass,
+      emaillog,
+      passwordlog,
+      passwordlog !== pass || emaillog !== email
+    );
     if (!emaillog || !passwordlog) {
       showAlert(true, "danger", "EMPTY Email and Password");
       console.log("EMPTY");
-    } else if (passwordlog !== pass || emaillog !== email) {
-      showAlert(true, "danger", "Wrong Email and Password");
-    } else {
-     
+    } else if (passwordlog == pass && emaillog == email) {
       setEmaillog();
       setPasswordlog();
       auth();
       sessionStorage.setItem("LogInEmail", emaillog);
       sessionStorage.setItem("LogInPassword", passwordlog);
       console.log("Saved in Session Storage");
-       setBlog(!blog);
-       navigate("/user");
+      setBlog(!blog);
+      navigate("/blogs");
+    } else {
+      
+      showAlert(true, "danger", "Wrong Email and Password");
+      console.log("Worng Email and password");
     }
   }
   const showAlert = (show = false, type = "", msg = "") => {

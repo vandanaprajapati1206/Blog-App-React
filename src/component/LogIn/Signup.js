@@ -7,15 +7,16 @@ import Button from "react-bootstrap/Button";
 import Alert from "../Alert";
 import Blogs from "../Blogs/Blogs";
 import { options } from "../Options";
+import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
 
-const getLocalStorageSignUp = () => {
-  let signup = localStorage.getItem("SignUp");
-  if (signup) {
-    return JSON.parse(localStorage.getItem("SignUp"));
-  } else {
-    return [];
-  }
-};
+// const getLocalStorageSignUp = () => {
+//   let signup = localStorage.getItem("users");
+//   if (signup) {
+//     return JSON.parse(localStorage.getItem("users"));
+//   } else {
+//     return [];
+//   }
+// };
 
 export default function Signup({ auth }) {
   const [name, setName] = useState("");
@@ -27,14 +28,15 @@ export default function Signup({ auth }) {
   const [gender, setGender] = useState("");
 
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
-  const [signup, setSignup] = useState(getLocalStorageSignUp());
+  // const [signup, setSignup] = useState(getLocalStorageSignUp());
+  const [signup, setSignup] = useState('',  {localStorage : false});
 
   const navigate = useNavigate();
 
   function handleSingUp(e) {
     e.preventDefault();
     console.log(
-      "user Sign up : ",
+      "User Sign up : ",
       name,
       email,
       phone,
@@ -44,48 +46,55 @@ export default function Signup({ auth }) {
       gender
     );
     if (!email || !phone || !password) {
-      showAlert(true, "danger", " Email ,Phone and Password Requierd..!");    
+      showAlert(true, "danger", " Email ,Phone and Password Requierd..!");
     } else if (email && phone && password) {
-
-      localStorage.setItem("Email", JSON.stringify(email));
-      localStorage.setItem("Password", JSON.stringify(password));
-      console.log("Saved in Local Storage");
+      console.log(user_data);
       let user_data = {
+        id: new Date().getTime().toString(),
         email: email,
         phone: phone,
         password: password,
+        name: name,
+        desc: desc,
+        intrest: intrest,
+        gender: gender,
       };
       let user_data_str = JSON.stringify(user_data);
-      let clientsArr = JSON.parse(localStorage.getItem("usersSignup")) || [];
-      
-      const userExists = clientsArr.find(
+      let usersArr = JSON.parse(localStorage.getItem("usersSignup")) || [];
+
+      const userExists = usersArr.find(
         (user) => JSON.stringify(user) === user_data_str
       );
+      console.log(userExists);
       if (userExists) {
         showAlert(true, "danger", " User already exists..!");
       } else {
-        clientsArr.push(user_data);
-        localStorage.setItem("usersSignup", JSON.stringify(clientsArr));
+        usersArr.push(user_data);
+        localStorage.setItem("usersSignup", JSON.stringify(usersArr));
       }
     } else {
-      
-      const newItem = {
-        id: new Date().getTime().toString(),
-        name: name,
-        email: email,
-        desc: desc,
-        gender: gender,
-        phone: phone,
-        password: password,
-        intrest: intrest,
-      };
-      localStorage.setItem("users", JSON.stringify([newItem]));
-      localStorage.setItem("Email", JSON.stringify(email));
-      localStorage.setItem("Password", JSON.stringify(password));
-      console.log("Saved in Local Storage");
+      showAlert(true, "success", " User SuccessFully sign up..!");
+
+      // const newItem = {
+      //   id: new Date().getTime().toString(),
+      //   name: name,
+      //   email: email,
+      //   desc: desc,
+      //   gender: gender,
+      //   phone: phone,
+      //   password: password,
+      //   intrest: intrest,
+      // };
+      // localStorage.setItem("users", JSON.stringify([newItem]));
+
+      // localStorage.setItem("Email", JSON.stringify(email));
+      // localStorage.setItem("Password", JSON.stringify(password));
+      // console.log("Saved in Local Storage");
+
       sessionStorage.setItem("email", email);
       sessionStorage.setItem("password", password);
       console.log("Saved in Session Storage");
+      
       auth();
       setName("");
       setEmail("");
@@ -94,8 +103,9 @@ export default function Signup({ auth }) {
       setPhone("");
       setPassword("");
       setIntrest("");
-      setSignup(!signup);
-      navigate("/user");
+
+      setSignup(!signup , {localStorage : true});
+      navigate("/blogs");
     }
   }
 
@@ -113,7 +123,7 @@ export default function Signup({ auth }) {
           marginInline: "250px",
         }}
       >
-        {signup ? (
+    
           <form onSubmit={handleSingUp}>
             <div>
               <label for="name" className="form-label">
@@ -205,7 +215,7 @@ export default function Signup({ auth }) {
                 Password
               </label>
               <input
-                type="text"
+                type="password"
                 className="form-control"
                 id="password"
                 placeholder=" Enter Password"
@@ -216,13 +226,11 @@ export default function Signup({ auth }) {
             <br></br>
             <Button type="submit">Sign In</Button>
           </form>
-        ) : (
-          <Blogs />
-        )}
+       
       </div>
       <nav>
         <span>click here for </span>
-        <Link to="/"> Sign In </Link>
+        <Link to="/login"> Sign In </Link>
       </nav>
     </div>
   );

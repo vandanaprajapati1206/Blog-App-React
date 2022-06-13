@@ -2,14 +2,15 @@ import { Button } from "bootstrap";
 import React from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
-export default function NavBar({logout,props}) {
-  const nav = useNavigate()
-  const { username, email, city, phone } =
-    (props.location && props.location.state) || {};
+export default function NavBar({ logout, props }) {
+  const nav = useNavigate();
+
+  // const { username, email, city, phone } =
+  //   (props.location && props.location.state) || {};
 
   function handelLogOut() {
-    logout()
-    nav('/')
+    logout();
+    nav("/");
     sessionStorage.removeItem("email");
     sessionStorage.removeItem("password");
   }
@@ -31,37 +32,39 @@ export default function NavBar({logout,props}) {
         <nav>
           <NavLink
             style={({ isActive }) => {
-              return { color: isActive ? "blue" : "" };
+              return { color: isActive ? "red" : "" };
             }}
-            to="/user/myblog"
+            to="/myblog"
           >
             My Blogs
           </NavLink>{" "}
           || ||
           <NavLink
             style={({ isActive }) => {
-              return { color: isActive ? "blue" : "" };
+              return { color: isActive ? "red" : "" };
             }}
-            to="/user/blog-list"
+            to="/blogs"
           >
             All Blogs
           </NavLink>
           || ||
           <NavLink
             style={({ isActive }) => {
-              return { color: isActive ? "blue" : "" };
+              return { color: isActive ? "red" : "" };
             }}
-            to="/user/add-blog"
+            to="/add-blog"
           >
             Add Blog
           </NavLink>
         </nav>
       </div>
-  
-  {props.user_data}
-     
-        <button onClick={handelLogOut} style={{marginLeft:'50%' }}>Log Out</button>
-    
+
+ 
+
+      <button onClick={handelLogOut} style={{ marginLeft: "50%" }}>
+        Log Out
+      </button>
+
       <Outlet />
     </div>
   );

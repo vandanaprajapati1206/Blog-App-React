@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import getLocalStorage from "./getLocalStorage";
 import Alert from "../Alert";
 import Select from "react-select";
@@ -13,7 +13,7 @@ const AddBlog = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
-
+const navigate= useNavigate()
   function handleAddBlog(e) {
     e.preventDefault();
     console.log("handle Submit...!", name, desc, category);
@@ -59,10 +59,12 @@ const AddBlog = () => {
         desc: desc,
         category: category,
       };
+     
       setList([...list, newItem]);
       setName("");
       setCategory("");
       setDesc("");
+  
     }
   }
 
@@ -77,9 +79,6 @@ const AddBlog = () => {
     <section>
       <hr />
       <h2 style={{ color: "darkmagenta" }}>Add Blog</h2>
-      {/* <nav>
-        <Link to="/user/blog-list"> Blog list</Link>
-      </nav> */}
       <hr />
 
       <form onSubmit={handleAddBlog}>
@@ -131,13 +130,14 @@ const AddBlog = () => {
               </th>
               <th>:</th>
               <th>
-              {/* <Select
+             
+              <Select
                 options={options}
                 isMulti={true}
                 _default={options.map(({ label }) => label)}
                 onChange={setCategory}
-              /> */}
-                <select
+              />
+                {/* <select
                   name="list"
                   value={category}
                   style={{ width: "150px" }}
@@ -150,7 +150,7 @@ const AddBlog = () => {
                   <option value="Travel">Travel</option>
                   <option value="Food">Food</option>
                   <option value="Professional">Professional</option>
-                </select>
+                </select> */}
               </th>
             </tr>
             <tr>

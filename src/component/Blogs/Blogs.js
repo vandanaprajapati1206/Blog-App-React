@@ -199,7 +199,6 @@ export default function Blogs() {
         <div>
           <hr />
           <h2 style={{ color: "darkmagenta" }}>Blog List</h2>
-    
           <hr />
           <BlogList item={list} remItem={remItem} updateItem={updateItem} />
         </div>

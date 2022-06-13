@@ -16,32 +16,41 @@ export default function Header() {
         }}
       >
         <nav>
-          <NavLink
+        <NavLink
             style={({ isActive }) => {
-              return { color: isActive ? "blue" : "" };
+              return { color: isActive ? "red" : "" };
             }}
             to="/"
+          >
+           Home
+          </NavLink>{" "} || ||
+          <NavLink
+            style={({ isActive }) => {
+              return { color: isActive ? "red" : "" };
+            }}
+            to="/contact-us"
+          >
+            Contact Us
+          </NavLink>
+          || ||
+          <NavLink
+            style={({ isActive }) => {
+              return { color: isActive ? "red" : "" };
+            }}
+            to="/login"
           >
             Sign In
           </NavLink>{" "}
           || ||
           <NavLink
             style={({ isActive }) => {
-              return { color: isActive ? "blue" : "" };
+              return { color: isActive ? "red" : "" };
             }}
             to="/sign-up"
           >
             Sign Up
           </NavLink>
-          || ||
-          <NavLink
-            style={({ isActive }) => {
-              return { color: isActive ? "blue" : "" };
-            }}
-            to="/contact-us"
-          >
-            Contact Us
-          </NavLink>
+         
         </nav>
       </div>
       <Outlet />
