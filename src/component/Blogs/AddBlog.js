@@ -10,11 +10,14 @@ const AddBlog = () => {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [category, setCategory] = useState("none");
+  const [loginId, setloginId] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
-const navigate= useNavigate()
-  function handleAddBlog(e) {
+  const navigate = useNavigate();
+   let user_id = JSON.parse(localStorage.getItem("usersSignup"));
+  
+   function handleAddBlog(e) {
     e.preventDefault();
     console.log("handle Submit...!", name, desc, category);
 
@@ -40,7 +43,13 @@ const navigate= useNavigate()
       setList(
         list.map((i) => {
           if (i.id === editId) {
-            return { ...i, title: name, desc: desc, category: category };
+            return {
+              ...i,
+              title: name,
+              desc: desc,
+              category: category,
+              loginId: loginId,
+            };
           }
           return i;
         })
@@ -58,13 +67,14 @@ const navigate= useNavigate()
         title: name,
         desc: desc,
         category: category,
+        user_id : user_id
       };
-     
+
       setList([...list, newItem]);
       setName("");
       setCategory("");
       setDesc("");
-  
+      navigate('/myblog')
     }
   }
 
@@ -102,6 +112,7 @@ const navigate= useNavigate()
                   type="text"
                   placeholder="Enter Blog Title"
                   name="name"
+                  autoFocus
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -130,13 +141,12 @@ const navigate= useNavigate()
               </th>
               <th>:</th>
               <th>
-             
-              <Select
-                options={options}
-                isMulti={true}
-                _default={options.map(({ label }) => label)}
-                onChange={setCategory}
-              />
+                <Select
+                  options={options}
+                  isMulti={true}
+                  _default={options.map(({ label }) => label)}
+                  onChange={setCategory}
+                />
                 {/* <select
                   name="list"
                   value={category}

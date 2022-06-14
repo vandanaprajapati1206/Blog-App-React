@@ -40,38 +40,67 @@ export default function Login({ auth }) {
     //   }
     // });
 
-    let pass = oldArr.filter((obj) => {
-      return obj.email === emaillog;
-    });
-    let email = oldArr.filter((obj) => {
-      return obj.password === passwordlog;
+    // let pass = oldArr.find(({password })=>{
+    //   return password === passwordlog;
+    
+    // })
+
+    // let email = oldArr.find(({email})=>{
+    //   return email === passwordlog;
+    // })
+
+    // let pass = oldArr.filter((obj) => {
+    //   console.log(obj.email === emaillog);
+    //   return obj.email === emaillog;
+    // });
+
+    // console.log(oldArr[0].email[0]);
+    let verify = oldArr.find((obj) => {
+      console.log(obj.password === passwordlog && obj.email === emaillog);
+      return (obj.password === passwordlog && obj.email === emaillog);
     });
 
-    console.log(!emaillog || !passwordlog);
-    console.log(
-      email,
-      pass,
-      emaillog,
-      passwordlog,
-      passwordlog !== pass || emaillog !== email
-    );
+    console.log("data",verify, emaillog, passwordlog);  
     if (!emaillog || !passwordlog) {
       showAlert(true, "danger", "EMPTY Email and Password");
-      console.log("EMPTY");
-    } else if (passwordlog == pass && emaillog == email) {
+       console.log("EMPTY", !emaillog || !passwordlog);
+    } else if (!verify) {
+      showAlert(true, "danger", "Wrong Email and Password"); 
+      console.log("Worng Email and password",!verify);
+    } else  {
+      console.log("Sign In Done...", verify);
       setEmaillog();
       setPasswordlog();
       auth();
+      console.log("Sign In Done...");
+
       sessionStorage.setItem("LogInEmail", emaillog);
       sessionStorage.setItem("LogInPassword", passwordlog);
       console.log("Saved in Session Storage");
       setBlog(!blog);
       navigate("/blogs");
-    } else {
-      
-      showAlert(true, "danger", "Wrong Email and Password");
-      console.log("Worng Email and password");
     }
+    // if (!emaillog || !passwordlog) {
+    //   showAlert(true, "danger", "EMPTY Email and Password");
+    //    console.log("EMPTY", !emaillog || !passwordlog);
+    // } else if (passwordlog !== pass && emaillog !== email) {
+    //   showAlert(true, "danger", "Wrong Email and Password"); 
+    //   console.log(
+    //   "Worng Email and password",
+    //   passwordlog !== pass && emaillog !== email
+    // );
+    // } else if (passwordlog == pass && emaillog == email) {
+    //   console.log("Sign In Done...", passwordlog == pass && emaillog == email);
+    //   setEmaillog();
+    //   setPasswordlog();
+    //   auth();
+    //   console.log("Sign In Done...");
+    //   sessionStorage.setItem("LogInEmail", emaillog);
+    //   sessionStorage.setItem("LogInPassword", passwordlog);
+    //   console.log("Saved in Session Storage");
+    //   setBlog(!blog);
+    //   navigate("/blogs");
+    // }
   }
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
@@ -80,9 +109,7 @@ export default function Login({ auth }) {
   return (
     <div>
       <h2> Sign In</h2>
-
       {alert.show && <Alert {...alert} remAlert={showAlert} />}
-
       <div
         style={{
           display: "block",
@@ -128,7 +155,6 @@ export default function Login({ auth }) {
           <Blogs />
         )}
       </div>
-
       <nav>
         <span>Click Here For </span>
         <Link to="/sign-up"> Sign Up</Link>

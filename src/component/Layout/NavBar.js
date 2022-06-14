@@ -5,14 +5,11 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 export default function NavBar({ logout, props }) {
   const nav = useNavigate();
 
-  // const { username, email, city, phone } =
-  //   (props.location && props.location.state) || {};
-
   function handelLogOut() {
     logout();
     nav("/");
-    sessionStorage.removeItem("email");
-    sessionStorage.removeItem("password");
+    sessionStorage.removeItem("LogInEmail");
+    sessionStorage.removeItem("LogInPassword");
   }
 
   return (
@@ -58,9 +55,6 @@ export default function NavBar({ logout, props }) {
           </NavLink>
         </nav>
       </div>
-
- 
-
       <button onClick={handelLogOut} style={{ marginLeft: "50%" }}>
         Log Out
       </button>
