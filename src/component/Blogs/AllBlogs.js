@@ -19,7 +19,7 @@ const AllBlogs = ({ item }) => {
         <br />
       </div>
 
-      <div>
+      {/* <div>
         <span>Search by Category: </span>
         <Select
           options={options}
@@ -28,8 +28,9 @@ const AllBlogs = ({ item }) => {
           onChange={setSearch}
           placeholder="Search Title"
         />
-      </div>
-    
+      </div> */}
+      
+    <br/>
       {item
         .filter((blog) => {
           if (search === "") {
@@ -39,13 +40,14 @@ const AllBlogs = ({ item }) => {
           } 
         })
         .map((i) => {
-          const { id, title, desc,  } = i;
-
+          const { id, title, desc,category  } = i;
           return (
             <article key={id}>
-              <p> Title: {title}</p>
-              <p> Description : {desc}</p>
-              <p>Category :{}</p>
+              <p style={{color: "red"}}> Title: {title}</p>
+              <p style={{color: "blue"}}> Description : {desc}</p>
+              <p style={{color: "green"}}>Category :{category.map(function(d,idx){
+              return (<li key={idx}>{d.label}</li>)
+            })}</p>
             </article>
           );
         })  }

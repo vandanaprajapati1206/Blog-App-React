@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Alert from "../Alert";
-import BlogList from "./BlogList";
-import getLocalStorage from "./getLocalStorage";
 
 import { Link } from "react-router-dom";
 import AllBlogs from "./AllBlogs";
+import getAllBlogsLocalStorage from "./getAllBlogsLocalStorage";
 
 export default function Blogs() {
-  const [list, setList] = useState(getLocalStorage());
+   const [list, setList] = useState(getAllBlogsLocalStorage());
 
   useEffect(() => {
-    localStorage.setItem("blog", JSON.stringify(list));
+    localStorage.setItem("AllBlogs", JSON.stringify(list));
   }, [list]);
 
   return (

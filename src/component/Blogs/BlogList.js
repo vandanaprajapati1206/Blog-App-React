@@ -6,19 +6,25 @@ import { options } from "../Options";
 
 const BlogList = ({ item, remItem, updateItem }) => {
   const [search, setSearch] = useState("");
+  let blogsAllArr = JSON.parse(localStorage.getItem("BlogList")) || [];
 
+  console.log(blogsAllArr);
   return (
     <div>
-
-      {item.map((i) => { 
-        const { id, title, desc, category =  JSON.parse(localStorage.getItem("blog"))} = i;
-       
-        // const item_name = category['category'][0]['value'];
+      {item.map((i) => {
+        console.log("bloglist....!");
+        const { id, title, desc, category } = i;
         return (
           <article key={id}>
-            <p> Title: {title}</p>
-            <p> Description : {desc}</p>
-            <p>Category :{}</p>
+            <br/>
+            <p style={{ color: "red" }}> Title: {title}</p>
+            <p style={{ color: "blue" }}> Description : {desc}</p>
+            <p style={{ color: "green" }}>
+              Category :{" "}
+              {category.map(function (d, idx) {
+                return <li key={idx}>{d.label}</li>;
+              })}
+            </p>
             <div>
               <Link to={`/edit-blog/${id}`}>
                 <button

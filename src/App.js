@@ -11,21 +11,29 @@ import NavBar from "./component/Layout/NavBar";
 import Login from "./component/LogIn/Login";
 import Signup from "./component/LogIn/Signup";
 import NotFound from "./component/Pages/NotFound";
-
-// const Blogs = React.lazy(() => import( "./component/Blogs/Blogs"));
+import MyProfile from "./component/Pages/MyProfile";
 
 function App() {
   const [user, setUser] = useState(false);
+
   useEffect(() => {
     localStorage.setItem("login", user);
   }, [user]);
+
+  useEffect(() => {
+    localStorage.setItem("login", user);
+  }, [user]);
+  
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Header />}>
-        <Route index element={<Home />} />
+          <Route index element={<Home />} />
           {!user && (
-            <Route path="/login" element={<Login auth={() => setUser(true)} />} />
+            <Route
+              path="/login"
+              element={<Login auth={() => setUser(true)} />}
+            />
           )}
           {!user && (
             <Route
@@ -34,17 +42,17 @@ function App() {
             />
           )}
           <Route path="/contact-us" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
         </Route>
         {user && (
           <Route path="/" element={<NavBar logout={() => setUser(false)} />}>
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/myblog" element={<MyBlog />} />
             <Route path="/edit-blog/:id" element={<MyBlog />} />
-            <Route path="/add-blog" element={<AddBlog />} />    
+            <Route path="/add-blog" element={<AddBlog />} />
+            <Route path="/profile" element={<MyProfile />} />
           </Route>
         )}
-        <Route path="*" element={<Navigate to={user ? "/user" : "/"} />} />
+        <Route path="*" element={<Navigate to={user ? "/blogs" : "/"} />} />
       </Routes>
     </div>
   );

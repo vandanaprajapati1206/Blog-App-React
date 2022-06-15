@@ -5,18 +5,7 @@ import "./login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Alert from "../Alert";
-import Blogs from "../Blogs/Blogs";
 import { options } from "../Options";
-import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
-
-// const getLocalStorageSignUp = () => {
-//   let signup = localStorage.getItem("users");
-//   if (signup) {
-//     return JSON.parse(localStorage.getItem("users"));
-//   } else {
-//     return [];
-//   }
-// };
 
 export default function Signup({ auth }) {
   const [name, setName] = useState("");
@@ -26,9 +15,7 @@ export default function Signup({ auth }) {
   const [desc, setDesc] = useState("");
   const [intrest, setIntrest] = useState(null);
   const [gender, setGender] = useState("");
-
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
-  // const [signup, setSignup] = useState(getLocalStorageSignUp());
   const [signup, setSignup] = useState("", { localStorage: false });
 
   const navigate = useNavigate();
@@ -69,9 +56,22 @@ export default function Signup({ auth }) {
       } else {
         usersArr.push(user_data);
         localStorage.setItem("usersSignup", JSON.stringify(usersArr));
+        
+        let loginUser_data = {
+          loginUser_id: new Date().getTime().toString(),
+          login_email: email,
+          login_password: password,
+        };
+        
+        // let loginUser_data_str = JSON.stringify(loginUser_data);
+        let usersLogArr = JSON.parse(localStorage.getItem("LoginUser")) || [];
+
+        usersLogArr.push(loginUser_data);
+        localStorage.setItem("LoginUser", JSON.stringify(usersLogArr));
+
         sessionStorage.setItem("LogInEmail", email);
         sessionStorage.setItem("LogInPassword", password);
-        console.log("Saved in Session Storage");
+        console.log("Saved in Session Storage", JSON.stringify());
 
         auth();
         setName("");
@@ -82,7 +82,7 @@ export default function Signup({ auth }) {
         setPassword("");
         setIntrest("");
         setSignup(!signup, { localStorage: true });
-        navigate("/blogs");
+        navigate("/blog");
       }
     } else {
       showAlert(true, "success", " User SuccessFully sign up..!");
@@ -222,6 +222,7 @@ export default function Signup({ auth }) {
           <Button type="submit">Sign In</Button>
         </form>
       </div>
+
       <nav>
         <span>click here for </span>
         <Link to="/login"> Sign In </Link>

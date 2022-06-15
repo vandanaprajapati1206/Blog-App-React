@@ -20,47 +20,13 @@ export default function Login({ auth }) {
 
     let olddata = localStorage.getItem("usersSignup");
     let oldArr = JSON.parse(olddata);
-
-    // oldArr.map((arr) => {
-    //   if (emaillog.length > 0  && !passwordlog.length > 0)
-    //   {
-    //     showAlert(true, "danger", "EMPTY Email and Password");
-    //     console.log("EMPTY", (emaillog.length > 0 && passwordlog.length > 0));
-    //     if (arr.emaillog == emaillog && arr.password == passwordlog)
-    //     {
-    //       console.log(arr.emaillog == emaillog && arr.password == passwordlog);
-    //       sessionStorage.setItem("LogInEmail", emaillog);
-    //       sessionStorage.setItem("LogInPassword", passwordlog);
-    //       console.log("Saved in Session Storage");
-    //       let user = emaillog;
-    //       navigate.push({ pathname: "/blogs", user: emaillog });
-    //     } else {
-    //       showAlert(true, "danger", "Wrong Email and Password");
-    //     }
-    //   }
-    // });
-
-    // let pass = oldArr.find(({password })=>{
-    //   return password === passwordlog;
-    
-    // })
-
-    // let email = oldArr.find(({email})=>{
-    //   return email === passwordlog;
-    // })
-
-    // let pass = oldArr.filter((obj) => {
-    //   console.log(obj.email === emaillog);
-    //   return obj.email === emaillog;
-    // });
-
-    // console.log(oldArr[0].email[0]);
     let verify = oldArr.find((obj) => {
       console.log(obj.password === passwordlog && obj.email === emaillog);
       return (obj.password === passwordlog && obj.email === emaillog);
     });
 
     console.log("data",verify, emaillog, passwordlog);  
+
     if (!emaillog || !passwordlog) {
       showAlert(true, "danger", "EMPTY Email and Password");
        console.log("EMPTY", !emaillog || !passwordlog);
@@ -74,34 +40,25 @@ export default function Login({ auth }) {
       auth();
       console.log("Sign In Done...");
 
+      let usersLogArr = JSON.parse(localStorage.getItem("LoginUser")) || [];
+      let loginUser_data = {
+        loginUser_id: new Date().getTime().toString(),
+        login_email: emaillog,
+        login_password: passwordlog,
+      };
+      
+      usersLogArr.push(loginUser_data);
+      localStorage.setItem("LoginUser", JSON.stringify(usersLogArr));
+
       sessionStorage.setItem("LogInEmail", emaillog);
       sessionStorage.setItem("LogInPassword", passwordlog);
       console.log("Saved in Session Storage");
+
       setBlog(!blog);
       navigate("/blogs");
     }
-    // if (!emaillog || !passwordlog) {
-    //   showAlert(true, "danger", "EMPTY Email and Password");
-    //    console.log("EMPTY", !emaillog || !passwordlog);
-    // } else if (passwordlog !== pass && emaillog !== email) {
-    //   showAlert(true, "danger", "Wrong Email and Password"); 
-    //   console.log(
-    //   "Worng Email and password",
-    //   passwordlog !== pass && emaillog !== email
-    // );
-    // } else if (passwordlog == pass && emaillog == email) {
-    //   console.log("Sign In Done...", passwordlog == pass && emaillog == email);
-    //   setEmaillog();
-    //   setPasswordlog();
-    //   auth();
-    //   console.log("Sign In Done...");
-    //   sessionStorage.setItem("LogInEmail", emaillog);
-    //   sessionStorage.setItem("LogInPassword", passwordlog);
-    //   console.log("Saved in Session Storage");
-    //   setBlog(!blog);
-    //   navigate("/blogs");
-    // }
   }
+  
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };

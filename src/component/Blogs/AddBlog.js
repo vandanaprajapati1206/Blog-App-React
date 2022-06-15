@@ -5,6 +5,7 @@ import Alert from "../Alert";
 import Select from "react-select";
 import { options } from "../Options";
 
+
 const AddBlog = () => {
   const [list, setList] = useState(getLocalStorage());
   const [name, setName] = useState("");
@@ -15,11 +16,19 @@ const AddBlog = () => {
   const [editId, setEditId] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const navigate = useNavigate();
-   let user_id = JSON.parse(localStorage.getItem("usersSignup"));
-  
-   function handleAddBlog(e) {
+
+  let user_id = localStorage.getItem("LoginUser");
+  let user_idArr = JSON.parse(user_id);
+  let add_Blog_userid = user_idArr[0].loginUser_id;
+  console.log(add_Blog_userid);
+
+
+  function handleAddBlog(e) {
     e.preventDefault();
     console.log("handle Submit...!", name, desc, category);
+    let blogsArr = JSON.parse(localStorage.getItem("BlogList")) || [];
+    
+    let AllBlogsArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
 
     if (!name && !desc && !category) {
       showAlert(
@@ -48,7 +57,7 @@ const AddBlog = () => {
               title: name,
               desc: desc,
               category: category,
-              loginId: loginId,
+              add_Blog_userid: add_Blog_userid,
             };
           }
           return i;
@@ -62,28 +71,43 @@ const AddBlog = () => {
       showAlert(true, "success", "Update Item");
     } else {
       showAlert(true, "success", "Item Added To List");
-      const newItem = {
+      const newBlog = {
         id: new Date().getTime().toString(),
         title: name,
         desc: desc,
         category: category,
-        user_id : user_id
+        add_Blog_userid: add_Blog_userid,
       };
 
-      setList([...list, newItem]);
+      blogsArr.push(newBlog);
+      localStorage.setItem("BlogList", JSON.stringify(blogsArr));
+      
+      const AllBlogs = {
+        id: new Date().getTime().toString(),
+        title: name,
+        desc: desc,
+        category: category,
+        add_Blog_userid: add_Blog_userid,
+        date : new Date().getDate().toString()
+      };
+
+      AllBlogsArr.push(AllBlogs);
+      localStorage.setItem("AllBlogs", JSON.stringify(AllBlogsArr));
+
       setName("");
       setCategory("");
       setDesc("");
-      navigate('/myblog')
+      navigate("/myblog");
     }
   }
+//   useEffect(()=>{
+//     localStorage.setItem('BlogList', JSON.stringify(list))
+// },[list]);
 
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
-  useEffect(() => {
-    localStorage.setItem("blog", JSON.stringify(list));
-  }, [list]);
+
 
   return (
     <section>
@@ -147,20 +171,6 @@ const AddBlog = () => {
                   _default={options.map(({ label }) => label)}
                   onChange={setCategory}
                 />
-                {/* <select
-                  name="list"
-                  value={category}
-                  style={{ width: "150px" }}
-                  id="list"
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option value="Personal">Personal</option>
-                  <option value="Business">Business</option>
-                  <option value="Fashion">Fashion</option>
-                  <option value="Travel">Travel</option>
-                  <option value="Food">Food</option>
-                  <option value="Professional">Professional</option>
-                </select> */}
               </th>
             </tr>
             <tr>

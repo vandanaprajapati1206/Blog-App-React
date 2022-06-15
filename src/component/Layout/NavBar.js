@@ -8,6 +8,8 @@ export default function NavBar({ logout, props }) {
   function handelLogOut() {
     logout();
     nav("/");
+    localStorage.removeItem("LoginUser")   
+    localStorage.removeItem("BlogList")
     sessionStorage.removeItem("LogInEmail");
     sessionStorage.removeItem("LogInPassword");
   }
@@ -34,7 +36,15 @@ export default function NavBar({ logout, props }) {
             to="/myblog"
           >
             My Blogs
-          </NavLink>{" "}
+          </NavLink>|| ||
+          <NavLink
+            style={({ isActive }) => {
+              return { color: isActive ? "red" : "" };
+            }}
+            to="/add-blog"
+          >
+            Add Blog
+          </NavLink>
           || ||
           <NavLink
             style={({ isActive }) => {
@@ -44,17 +54,18 @@ export default function NavBar({ logout, props }) {
           >
             All Blogs
           </NavLink>
-          || ||
+          {/* || ||
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
             }}
-            to="/add-blog"
+            to="/profile"
           >
-            Add Blog
-          </NavLink>
+            My Profile
+          </NavLink> */}
         </nav>
       </div>
+      
       <button onClick={handelLogOut} style={{ marginLeft: "50%" }}>
         Log Out
       </button>
