@@ -9,6 +9,7 @@ import Blogs from "../Blogs/Blogs";
 export default function Login({ auth }) {
   const [emaillog, setEmaillog] = useState("");
   const [passwordlog, setPasswordlog] = useState("");
+  const [role, setRole] = useState("");
   const [blog, setBlog] = useState(true);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
 
@@ -17,23 +18,55 @@ export default function Login({ auth }) {
   function handleSingIn(e) {
     e.preventDefault();
     console.log("Login : ", emaillog, passwordlog);
+ 
 
     let olddata = localStorage.getItem("usersSignup");
     let oldArr = JSON.parse(olddata);
     let verify = oldArr.find((obj) => {
-      console.log(obj.password === passwordlog && obj.email === emaillog);
-      return (obj.password === passwordlog && obj.email === emaillog);
+      console.log("matched..",obj.password === passwordlog && obj.email === emaillog);
+      return obj.password === passwordlog && obj.email === emaillog;
     });
 
-    console.log("data",verify, emaillog, passwordlog);  
+    // let roleVerify = oldArr.find((roles) => {
+    //   return roles?.includes(role)
+    // });
+
+    // console.log(roleVerify);
+
+    let adminid = "admin123@gmail.com";
+    let adminpswd = "admin@123";
+    if (emaillog === adminid && passwordlog === adminpswd) {
+      console.log(
+        "Admin Sign In Done...",
+        emaillog === adminid && passwordlog === adminpswd
+      );
+      const adminData = {
+        emaillog, passwordlog
+      }
+      localStorage.setItem("AdminLogin", JSON.stringify(adminData))
+
+      sessionStorage.setItem("LogInEmail", emaillog);
+      sessionStorage.setItem("LogInPassword", passwordlog);
+      console.log("Saved in Session Storage");
+      navigate("/admin");
+    }
+
+
+
+    // console.log(roleVerify);
+  
+    // if (!roleVerify) {
+    //   return true;
+    // }
+
 
     if (!emaillog || !passwordlog) {
       showAlert(true, "danger", "EMPTY Email and Password");
-       console.log("EMPTY", !emaillog || !passwordlog);
+      console.log("EMPTY", !emaillog || !passwordlog);
     } else if (!verify) {
-      showAlert(true, "danger", "Wrong Email and Password"); 
-      console.log("Worng Email and password",!verify);
-    } else  {
+      showAlert(true, "danger", "Wrong Email and Password");
+      console.log("Worng Email and password", !verify);
+    } else {
       console.log("Sign In Done...", verify);
       setEmaillog();
       setPasswordlog();
@@ -46,9 +79,18 @@ export default function Login({ auth }) {
         login_email: emaillog,
         login_password: passwordlog,
       };
-      
+
       usersLogArr.push(loginUser_data);
       localStorage.setItem("LoginUser", JSON.stringify(usersLogArr));
+
+      // let loginUser_data = {
+      //   loginUser_id: new Date().getTime().toString(),
+      //   login_email: emaillog,
+      //   login_password: passwordlog,
+      // };
+
+      // // usersLogArr.push(loginUser_data);
+      // localStorage.setItem("LoginUser", JSON.stringify(loginUser_data));
 
       sessionStorage.setItem("LogInEmail", emaillog);
       sessionStorage.setItem("LogInPassword", passwordlog);
@@ -58,7 +100,7 @@ export default function Login({ auth }) {
       navigate("/blogs");
     }
   }
-  
+
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };

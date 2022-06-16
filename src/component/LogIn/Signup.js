@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Alert from "../Alert";
 import { options } from "../Options";
+import { roles } from "./roles";
 
 export default function Signup({ auth }) {
   const [name, setName] = useState("");
@@ -15,6 +16,7 @@ export default function Signup({ auth }) {
   const [desc, setDesc] = useState("");
   const [intrest, setIntrest] = useState(null);
   const [gender, setGender] = useState("");
+  const [role, setRole] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const [signup, setSignup] = useState("", { localStorage: false });
 
@@ -30,7 +32,8 @@ export default function Signup({ auth }) {
       password,
       desc,
       intrest,
-      gender
+      gender,
+      role
     );
     if (!email || !phone || !password) {
       showAlert(true, "danger", " Email ,Phone and Password Requierd..!");
@@ -44,6 +47,7 @@ export default function Signup({ auth }) {
         desc: desc,
         intrest: intrest,
         gender: gender,
+        role: role,
       };
       let user_data_str = JSON.stringify(user_data);
       let usersArr = JSON.parse(localStorage.getItem("usersSignup")) || [];
@@ -56,13 +60,14 @@ export default function Signup({ auth }) {
       } else {
         usersArr.push(user_data);
         localStorage.setItem("usersSignup", JSON.stringify(usersArr));
-        
+
         let loginUser_data = {
           loginUser_id: new Date().getTime().toString(),
           login_email: email,
           login_password: password,
+          role: role,
         };
-        
+
         // let loginUser_data_str = JSON.stringify(loginUser_data);
         let usersLogArr = JSON.parse(localStorage.getItem("LoginUser")) || [];
 
@@ -72,7 +77,7 @@ export default function Signup({ auth }) {
         sessionStorage.setItem("LogInEmail", email);
         sessionStorage.setItem("LogInPassword", password);
         console.log("Saved in Session Storage", JSON.stringify());
-
+        navigate("/login");
         auth();
         setName("");
         setEmail("");
@@ -82,7 +87,7 @@ export default function Signup({ auth }) {
         setPassword("");
         setIntrest("");
         setSignup(!signup, { localStorage: true });
-        navigate("/blog");
+       
       }
     } else {
       showAlert(true, "success", " User SuccessFully sign up..!");
@@ -218,8 +223,18 @@ export default function Signup({ auth }) {
             />
           </div>
 
+          <div>
+            <label for="role" className="form-label">
+              Role
+            </label>
+            <Select
+              className="form-control"
+              onChange={setRole}
+              options={roles}
+            />
+          </div>
           <br></br>
-          <Button type="submit">Sign In</Button>
+          <Button type="submit">Sign Up</Button>
         </form>
       </div>
 

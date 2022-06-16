@@ -8,9 +8,9 @@ import getAllBlogsLocalStorage from "./getAllBlogsLocalStorage";
 export default function Blogs() {
    const [list, setList] = useState(getAllBlogsLocalStorage());
 
-  useEffect(() => {
-    localStorage.setItem("AllBlogs", JSON.stringify(list));
-  }, [list]);
+  // useEffect(() => {
+  //   localStorage.setItem("AllBlogs", JSON.stringify(list));
+  // }, [list]);
 
   return (
     <section>   

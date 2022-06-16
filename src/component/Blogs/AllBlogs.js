@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import { options } from "../Options";
 import getLocalStorage from "./getLocalStorage";
+import LikeBtn from "./LikeBtn";
 
 const AllBlogs = ({ item }) => {
   const [search, setSearch] = useState("");
   const [list, setList] = useState(getLocalStorage());
+
   return (
     <div>
       <div>
@@ -17,19 +19,7 @@ const AllBlogs = ({ item }) => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <br />
-      </div>
-
-      {/* <div>
-        <span>Search by Category: </span>
-        <Select
-          options={options}
-          isMulti={true}
-          _default={options.map(({ label }) => label)}
-          onChange={setSearch}
-          placeholder="Search Title"
-        />
-      </div> */}
-      
+      </div> 
     <br/>
       {item
         .filter((blog) => {
@@ -48,6 +38,7 @@ const AllBlogs = ({ item }) => {
               <p style={{color: "green"}}>Category :{category.map(function(d,idx){
               return (<li key={idx}>{d.label}</li>)
             })}</p>
+           <LikeBtn />
             </article>
           );
         })  }

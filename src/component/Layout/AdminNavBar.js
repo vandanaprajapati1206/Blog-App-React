@@ -1,31 +1,27 @@
-import { Button } from "bootstrap";
 import React from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
-export default function NavBar({ logout, props }) {
+export default function AdminNavBar({ adminlogout, props }) {
   const nav = useNavigate();
-
   function handelLogOut() {
-    logout();
+    adminlogout();
     nav("/");
-    localStorage.removeItem("LoginUser");
-    localStorage.removeItem("BlogList");
     sessionStorage.removeItem("LogInEmail");
     sessionStorage.removeItem("LogInPassword");
   }
-
   return (
     <div>
       <h1 style={{ color: "darkmagenta" }}>Blog Application</h1>
       <h4 style={{ color: "darkmagenta", backgroundColor: "rgb(233 178 240)" }}>
-        User Panel
+        Admin Panel
         <button
           onClick={handelLogOut}
           className="btn btn-light"
-          style={{marginLeft: "50%",
-          color: "darkmagenta",
-          borderColor: "darkmagenta",
-         }}
+          style={{
+            marginLeft: "50%",
+            color: "darkmagenta",
+            borderColor: "darkmagenta",
+          }}
         >
           Log Out
         </button>
@@ -45,43 +41,30 @@ export default function NavBar({ logout, props }) {
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
             }}
-            to="/myblog"
+            to="/admin/dashboard"
           >
-            My Blogs
+            Dashboard
           </NavLink>
           || ||
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
             }}
-            to="/add-blog"
+            to="/admin/users"
           >
-            Add Blog
+            Users
           </NavLink>
           || ||
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
             }}
-            to="/blogs"
+            to="/admin/blogs"
           >
-            All Blogs
+            Blogs
           </NavLink>
-          {/* || ||
-          <NavLink
-            style={({ isActive }) => {
-              return { color: isActive ? "red" : "" };
-            }}
-            to="/profile"
-          >
-            My Profile
-          </NavLink> */}
         </nav>
       </div>
-
-      {/* <button onClick={handelLogOut} style={{ marginLeft: "50%" }}>
-        Log Out
-      </button> */}
 
       <Outlet />
     </div>
