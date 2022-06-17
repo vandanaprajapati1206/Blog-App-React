@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import Select from "react-select";
-import { options } from "../Options";
 import getLocalStorage from "./getLocalStorage";
-import LikeBtn from "./LikeBtn";
-
+import LikeBtn from '../Like/LikeBtn'
 const AllBlogs = ({ item }) => {
   const [search, setSearch] = useState("");
-  const [list, setList] = useState(getLocalStorage());
+  // const [list, setList] = useState(getLocalStorage());
 
   return (
     <div>
@@ -31,6 +26,7 @@ const AllBlogs = ({ item }) => {
         })
         .map((i) => {
           const { id, title, desc,category  } = i;
+          
           return (
             <article key={id}>
               <p style={{color: "red"}}> Title: {title}</p>
@@ -38,7 +34,7 @@ const AllBlogs = ({ item }) => {
               <p style={{color: "green"}}>Category :{category.map(function(d,idx){
               return (<li key={idx}>{d.label}</li>)
             })}</p>
-           <LikeBtn />
+        <LikeBtn />
             </article>
           );
         })  }

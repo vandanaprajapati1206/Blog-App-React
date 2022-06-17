@@ -18,70 +18,86 @@ export default function Login({ auth }) {
   function handleSingIn(e) {
     e.preventDefault();
     console.log("Login : ", emaillog, passwordlog);
- 
 
     let olddata = localStorage.getItem("usersSignup");
     let oldArr = JSON.parse(olddata);
-    let verify = oldArr.find((obj) => {
-      console.log("matched..",obj.password === passwordlog && obj.email === emaillog);
-      return obj.password === passwordlog && obj.email === emaillog;
+    
+    let User_verify = oldArr.find((obj) => {
+      console.log(
+        "matched..User",
+        obj.password === passwordlog &&
+          obj.email === emaillog &&
+          obj.role === "User"
+      );
+      return (
+        obj.password === passwordlog &&
+        obj.email === emaillog &&
+        obj.role === "User"
+      );
+    });
+
+    let admin_verify = oldArr.find((obj) => {
+      console.log(
+        "matched..Admin",
+        obj.password === passwordlog &&
+          obj.email === emaillog &&
+          obj.role === "Admin"
+      );
+      return (
+        obj.password === passwordlog &&
+        obj.email === emaillog &&
+        obj.role === "Admin"
+      );
     });
 
     // let roleVerify = oldArr.find((roles) => {
-    //   return roles?.includes(role)
+    //   console.log("Role Admin", roles.role === "Admin");
+    //   return roles.role === "Admin";
     // });
 
-    // console.log(roleVerify);
+    // let UserVerify = oldArr.find((roles) => {
+    //   console.log("Role User", roles.role === "User");
+    //   return roles.role === "User";
+    // });
 
-    let adminid = "admin123@gmail.com";
-    let adminpswd = "admin@123";
-    if (emaillog === adminid && passwordlog === adminpswd) {
-      console.log(
-        "Admin Sign In Done...",
-        emaillog === adminid && passwordlog === adminpswd
-      );
-      const adminData = {
-        emaillog, passwordlog
-      }
-      localStorage.setItem("AdminLogin", JSON.stringify(adminData))
+    // let adminid = "admin123@gmail.com";
+    // let adminpswd = "admin@123";
+    // if (emaillog === adminid && passwordlog === adminpswd) {
+    //   console.log(
+    //     "Admin Sign In Done...",
+    //     emaillog === adminid && passwordlog === adminpswd
+    //   );
+    //   const adminData = {
+    //     emaillog, passwordlog
+    //   }
+    //   localStorage.setItem("AdminLogin", JSON.stringify(adminData))
 
-      sessionStorage.setItem("LogInEmail", emaillog);
-      sessionStorage.setItem("LogInPassword", passwordlog);
-      console.log("Saved in Session Storage");
-      navigate("/admin");
-    }
-
-
-
-    // console.log(roleVerify);
-  
-    // if (!roleVerify) {
-    //   return true;
+    //   sessionStorage.setItem("LogInEmail", emaillog);
+    //   sessionStorage.setItem("LogInPassword", passwordlog);
+    //   console.log("Saved in Session Storage");
+    //   navigate("/admin");
     // }
-
 
     if (!emaillog || !passwordlog) {
       showAlert(true, "danger", "EMPTY Email and Password");
       console.log("EMPTY", !emaillog || !passwordlog);
-    } else if (!verify) {
+    } else if (!User_verify) {
       showAlert(true, "danger", "Wrong Email and Password");
-      console.log("Worng Email and password", !verify);
-    } else {
-      console.log("Sign In Done...", verify);
+      console.log("Worng Email and password", !User_verify);
+    }else {
+      console.log("Sign In Done...", User_verify);
       setEmaillog();
       setPasswordlog();
       auth();
       console.log("Sign In Done...");
-
-      let usersLogArr = JSON.parse(localStorage.getItem("LoginUser")) || [];
+      //let usersLogArr = JSON.parse(localStorage.getItem("LoginUser")) || [];
       let loginUser_data = {
         loginUser_id: new Date().getTime().toString(),
-        login_email: emaillog,
-        login_password: passwordlog,
+        emaillog,
+        passwordlog,
       };
-
-      usersLogArr.push(loginUser_data);
-      localStorage.setItem("LoginUser", JSON.stringify(usersLogArr));
+      // usersLogArr.push(loginUser_data);
+      localStorage.setItem("LoginUser", JSON.stringify(loginUser_data));
 
       // let loginUser_data = {
       //   loginUser_id: new Date().getTime().toString(),
@@ -95,9 +111,19 @@ export default function Login({ auth }) {
       sessionStorage.setItem("LogInEmail", emaillog);
       sessionStorage.setItem("LogInPassword", passwordlog);
       console.log("Saved in Session Storage");
-
       setBlog(!blog);
       navigate("/blogs");
+    }
+    if (admin_verify) {
+      const adminData = {
+        emaillog,
+        passwordlog,
+      };
+      localStorage.setItem("AdminLogin", JSON.stringify(adminData));
+      sessionStorage.setItem("LogInEmail", emaillog);
+      sessionStorage.setItem("LogInPassword", passwordlog);
+      console.log("Admin Saved in Session Storage");
+      navigate("/admin");
     }
   }
 

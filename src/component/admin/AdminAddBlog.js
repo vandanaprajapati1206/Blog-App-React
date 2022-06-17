@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
-import getLocalStorage from "./getLocalStorage";
 import Alert from "../Alert";
 import Select from "react-select";
 import { options } from "../Options";
+import getLocalStorage from "../Blogs/getLocalStorage";
 
-const AddBlog = () => {
+const AdminAddBlog = () => {
   const [list, setList] = useState(getLocalStorage());
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -13,17 +13,37 @@ const AddBlog = () => {
   const [loginId, setloginId] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
+  const [userListId, setUserListId] = useState("")
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const navigate = useNavigate();
 
-  // let user_id = localStorage.getItem("LoginUser");
-  // let user_idArr = JSON.parse(user_id);
-  // let add_Blog_userid = user_idArr[0].loginUser_id;
-  // console.log(add_Blog_userid);
+  let userData = localStorage.getItem("usersSignup", "user_id");
+  let userArr = JSON.parse(userData);
+//   let obj = userArr.find(o => o.user_id);
+//  console.log(obj);
 
-  let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
-  let add_Blog_userid = loginUserId.loginUser_id;
-  console.log(add_Blog_userid)
+// let obj = userArr.find((o, i) => {
+//   if (o.user_id === '') {
+//     userArr[i] = { user_id: ''};
+//       return true; 
+//   }
+// });
+
+var stateArray = userArr.map(item => item.user_id);
+
+var id =stateArray.toString()
+console.log(stateArray);
+console.log(id);
+
+// const obj = userArr.map((user_id, i) => {
+  
+//   console.log(userArr[i].user_id)
+// });
+
+  // console.log(obj);
+  // let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
+  // let add_Blog_userid = loginUserId.loginUser_id;
+  // console.log(add_Blog_userid)
   
   function handleAddBlog(e) {
     e.preventDefault();
@@ -59,7 +79,7 @@ const AddBlog = () => {
                name,
                desc,
                category,
-               add_Blog_userid,
+         
             };
           }
           return i;
@@ -78,7 +98,7 @@ const AddBlog = () => {
         name,
          desc,
          category,
-         add_Blog_userid,
+   
       };
 
       blogsArr.push(newBlog);
@@ -89,7 +109,6 @@ const AddBlog = () => {
         name,
          desc,
          category,
-        add_Blog_userid,
         date: new Date().getDate().toString(),
       };
 
@@ -174,6 +193,21 @@ const AddBlog = () => {
                 />
               </th>
             </tr>
+
+            <tr>
+              <th>
+                <label>Assign User </label>
+              </th>
+              <th>:</th>
+              <th>
+                <select
+                  value={id}
+                 
+              
+                  onChange={setUserListId}
+                />
+              </th>
+            </tr>
             <tr>
               <th></th>
             </tr>
@@ -206,4 +240,4 @@ const AddBlog = () => {
     </section>
   );
 };
-export default AddBlog;
+export default AdminAddBlog;

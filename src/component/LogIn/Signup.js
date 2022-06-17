@@ -87,7 +87,6 @@ export default function Signup({ auth }) {
         setPassword("");
         setIntrest("");
         setSignup(!signup, { localStorage: true });
-       
       }
     } else {
       showAlert(true, "success", " User SuccessFully sign up..!");
@@ -180,8 +179,8 @@ export default function Signup({ auth }) {
             <label for="gender" className="form-label">
               Gender
             </label>
-            <br></br>
             <input
+              style={{ width: "15px", height: "15px" }}
               type="radio"
               value="Male"
               name="gender"
@@ -190,6 +189,7 @@ export default function Signup({ auth }) {
             />
             Male
             <input
+              style={{ width: "15px", height: "15px" }}
               type="radio"
               value="Female"
               name="gender"
@@ -204,8 +204,15 @@ export default function Signup({ auth }) {
               Descriptions
             </label>
             <textarea
-              rows={5}
-              cols={90}
+              style={{
+                margin: "0px 0px",
+                padding: "20px",
+                height: "16px",
+                width: "100%",
+                margin: "0px auto",
+              }}
+              // rows={5}
+              // cols={90}
               onChange={(e) => setDesc(e.target.value)}
             />
           </div>
@@ -227,11 +234,29 @@ export default function Signup({ auth }) {
             <label for="role" className="form-label">
               Role
             </label>
-            <Select
+            <input
+              style={{ width: "15px", height: "15px" }}
+              type="radio"
+              value="Admin"
+              name="role"
+              checked={role === "Admin"}
+              onChange={(e) => setRole(e.target.value)}
+            />
+            Admin
+            <input
+              style={{ width: "15px", height: "15px" }}
+              type="radio"
+              value="User"
+              name="role"
+              onChange={(e) => setRole(e.target.value)}
+              checked={role === "User"}
+            />
+            User
+            {/* <Select
               className="form-control"
               onChange={setRole}
               options={roles}
-            />
+            /> */}
           </div>
           <br></br>
           <Button type="submit">Sign Up</Button>

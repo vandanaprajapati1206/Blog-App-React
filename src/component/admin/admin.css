@@ -1,0 +1,19 @@
+
+.question {
+    padding: 1rem 1.5rem;
+    border: solid rgb(56, 7, 65);
+    margin-bottom: 1rem;
+    border-radius: 30px;
+    box-shadow: 10px 5px 5px rgb(170, 139, 184);
+  }
+
+  
+.blog {
+    padding: 1rem 1.5rem;
+    border: solid rgb(171, 125, 189);
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 3px 3px rgb(59, 1, 70), -1em 0 .4em rgb(32, 0, 60);
+  }
+
+  

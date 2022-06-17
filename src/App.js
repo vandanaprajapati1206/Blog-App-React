@@ -16,6 +16,7 @@ import Dashboard from "./component/admin/Dashboard";
 import Users from "./component/admin/Users";
 import AdminNavBar from "./component/Layout/AdminNavBar";
 import AdminBlog from "./component/admin/AdminBlog";
+import AdminAddBlog from "./component/admin/AdminAddBlog";
 
 function App() {
   const [user, setUser] = useState(false);
@@ -65,6 +66,8 @@ function App() {
           <Route path="/admin" element={<AdminNavBar adminlogout={() => setUser(false)} />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="blogs" element={<AdminBlog />} />
+            <Route path="edit-blog/:id" element={<MyBlog />} />
+            <Route path="addblog" element={<AdminAddBlog />} />
             <Route path="users" element={<Users />} />
           </Route>
         )}

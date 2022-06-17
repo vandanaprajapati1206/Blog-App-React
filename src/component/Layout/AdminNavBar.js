@@ -6,6 +6,7 @@ export default function AdminNavBar({ adminlogout, props }) {
   function handelLogOut() {
     adminlogout();
     nav("/");
+    localStorage.removeItem("AdminLogin")
     sessionStorage.removeItem("LogInEmail");
     sessionStorage.removeItem("LogInPassword");
   }
@@ -62,10 +63,17 @@ export default function AdminNavBar({ adminlogout, props }) {
             to="/admin/blogs"
           >
             Blogs
+          </NavLink>|| ||
+          <NavLink
+            style={({ isActive }) => {
+              return { color: isActive ? "red" : "" };
+            }}
+            to="/admin/addblog"
+          >
+            Add Blogs
           </NavLink>
         </nav>
       </div>
-
       <Outlet />
     </div>
   );
