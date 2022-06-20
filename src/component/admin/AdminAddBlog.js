@@ -9,46 +9,50 @@ const AdminAddBlog = () => {
   const [list, setList] = useState(getLocalStorage());
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
+  const [userListId, setUserListId] = useState("");
   const [category, setCategory] = useState("none");
-  const [loginId, setloginId] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
-  const [userListId, setUserListId] = useState("")
+  const [count, setCount] = useState(0);
+
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const navigate = useNavigate();
 
   let userData = localStorage.getItem("usersSignup", "user_id");
   let userArr = JSON.parse(userData);
-//   let obj = userArr.find(o => o.user_id);
-//  console.log(obj);
+  // let obj = userArr.find((o) => o.user_id);
 
-// let obj = userArr.find((o, i) => {
-//   if (o.user_id === '') {
-//     userArr[i] = { user_id: ''};
-//       return true; 
-//   }
-// });
+  // let obj = userArr.find((o, i) => {
+  //   if (o.user_id === '') {
+  //     userArr[i] = { user_id: ''};
+  //       return true;
+  //   }
+  // });
 
-var stateArray = userArr.map(item => item.user_id);
+  var stateArray = userArr.map((item, i) => ({
+    label: `${item.email}`,
+    value: `${item.email}`,
+  }));
+ // console.log(stateArray);
 
-var id =stateArray.toString()
-console.log(stateArray);
-console.log(id);
+  //const userOptions = stateArray
 
-// const obj = userArr.map((user_id, i) => {
-  
-//   console.log(userArr[i].user_id)
-// });
+  // console.log(id);
+
+  // const obj = userArr.map((user_id, i) => {
+
+  //   console.log(userArr[i].user_id)
+  // });
 
   // console.log(obj);
   // let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
   // let add_Blog_userid = loginUserId.loginUser_id;
   // console.log(add_Blog_userid)
-  
+
   function handleAddBlog(e) {
     e.preventDefault();
-    console.log("handle Submit...!", name, desc, category);
-    let blogsArr = JSON.parse(localStorage.getItem("BlogList")) || [];
+    console.log("handle Submit...!", name, desc, category , userListId);
+    // let blogsArr = JSON.parse(localStorage.getItem("BlogList")) || [];
 
     let AllBlogsArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
 
@@ -76,10 +80,11 @@ console.log(id);
           if (i.id === editId) {
             return {
               ...i,
-               name,
-               desc,
-               category,
-         
+              name,
+              desc,
+              category,
+              userListId,
+              count
             };
           }
           return i;
@@ -88,37 +93,40 @@ console.log(id);
       setName("");
       setDesc("");
       setCategory("");
+      setUserListId("")
       setEditId(null);
       setIsEdit(false);
       showAlert(true, "success", "Update Item");
     } else {
       showAlert(true, "success", "Item Added To List");
-      const newBlog = {
-        id: new Date().getTime().toString(),
-        name,
-         desc,
-         category,
-   
-      };
+      
+      // const newBlog = {
+      //   id: new Date().getTime().toString(),
+      //   name,
+      //   desc,
+      //   category,
+      //   userListId,
+      // };
 
-      blogsArr.push(newBlog);
-      localStorage.setItem("BlogList", JSON.stringify(blogsArr));
+      // blogsArr.push(newBlog);
+      // localStorage.setItem("BlogList", JSON.stringify(blogsArr));
 
       const AllBlogs = {
         id: new Date().getTime().toString(),
         name,
-         desc,
-         category,
-        date: new Date().getDate().toString(),
+        desc,
+        category,
+        userListId,
+        count 
       };
 
       AllBlogsArr.push(AllBlogs);
       localStorage.setItem("AllBlogs", JSON.stringify(AllBlogsArr));
-
       setName("");
       setCategory("");
       setDesc("");
-      navigate("/myblog");
+      setUserListId("");
+      navigate("/admin/blogs");
     }
   }
   //   useEffect(()=>{
@@ -131,6 +139,7 @@ console.log(id);
 
   return (
     <section>
+     
       <hr />
       <h2 style={{ color: "darkmagenta" }}>Add Blog</h2>
       <hr />
@@ -170,7 +179,7 @@ console.log(id);
               <th>
                 <textarea
                   placeholder="Blog Description"
-                  description="name"
+                  name="description"
                   value={desc}
                   rows="5"
                   cols="17"
@@ -200,10 +209,10 @@ console.log(id);
               </th>
               <th>:</th>
               <th>
-                <select
-                  value={id}
-                 
-              
+                <Select
+                  isMulti={true}
+                  options={stateArray}
+                  _default={stateArray.map(({ label }) => label)}
                   onChange={setUserListId}
                 />
               </th>

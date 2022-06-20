@@ -1,14 +1,27 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import getAllBlogsLocalStorage from '../Blogs/getAllBlogsLocalStorage';
 
  const LikeBtn = () => {
-    const [toggle, setToggle] = React.useState(false);
-    const toggleButton = () => setToggle(!toggle);
+    const [toggle, setToggle] = useState(0);
+    const [list, setList] = useState(getAllBlogsLocalStorage());
+
+    function toggleButton (e){
+      e.preventDefault();
+      console.log("Liked..");
+      const LikeCount = {
+        toggle : toggle + 1
+      };
+      localStorage.setItem("Toggle Btn", JSON.stringify(LikeCount));
+     // localStorage.setItem("AllBlogs", JSON.stringify(LikeCount))
+      setToggle(!toggle);
+
+    }  
     useEffect(() => {
-        
-      }, [toggle]);
+     
+      },[toggle]);
     return (
      <>
-       <button style={{backgroundColor: toggle ? 'red' : 'white'}} onClick={toggleButton}>Click Me</button>
+       <button style={{backgroundColor: toggle ? 'red' : 'white'}} onClick={toggleButton}>Like</button>
      </>
     );
 }

@@ -10,7 +10,6 @@ const AddBlog = () => {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [category, setCategory] = useState("none");
-  const [loginId, setloginId] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
@@ -68,6 +67,7 @@ const AddBlog = () => {
       setName("");
       setDesc("");
       setCategory("");
+      
       setEditId(null);
       setIsEdit(false);
       showAlert(true, "success", "Update Item");

@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import Select from "react-select";
-import getAllBlogsLocalStorage from "../Blogs/getAllBlogsLocalStorage";
-import LikeBtn from "../Like/LikeBtn";
-import UsersList from "./UsersList";
+import { Link } from "react-router-dom";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
-const AllBlog = ({ item }) => {
+const AllBlog = ({ item, updateItem, remItem }) => {
   const [search, setSearch] = useState("");
-  const [blogData, setList] = useState(getAllBlogsLocalStorage());
-  const [userList, setUserList] = useState("");
+  // const [blogData, setList] = useState(getAllBlogsLocalStorage());
 
-  let userData = JSON.parse(localStorage.getItem("usersSignup"));
-  console.log(userData);
+
+  // let userData = JSON.parse(localStorage.getItem("usersSignup"));
+  // console.log(userData);
 
   // let UserBlogsArr = JSON.parse(localStorage.getItem("AllBlogs"));
-  
+
   // console.log(UserBlogsArr);
 
   return (
@@ -36,21 +34,40 @@ const AllBlog = ({ item }) => {
           }
         })
         .map((i) => {
-          const { id, title, desc, category } = i;
+          const { id, name, desc, category ,userListId} = i;
           return (
             <div className="blog">
               <article key={id}>
-                <p style={{ color: "red" }}> Title: {title}</p>
+                <p style={{ color: "red" }}> Title: {name}</p>
                 <p style={{ color: "blue" }}> Description : {desc}</p>
                 <p style={{ color: "green" }}>
                   Category :
                   {category.map(function (d, idx) {
                     return <li key={idx}>{d.label}</li>;
                   })}
+                </p> 
+                <p style={{ color: "gray" }}>
+                  Users List:
+                  {userListId.map(function (d, idx) {
+                    return <li key={idx}>{d.label}</li>;
+                  })}
                 </p>
-                <p>Users List : {}</p>
-                <p>Assign User: </p>
                 <p>Total Like : {}</p>
+                <div>
+              <Link to={`/admin/edit-blog/${id}`}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    updateItem(id);
+                  }}
+                >
+                  <FaEdit />
+                </button>
+              </Link>
+              <button type="button" onClick={() => remItem(id)}>
+                <FaTrash />
+              </button>
+            </div>
               </article>
             </div>
           );

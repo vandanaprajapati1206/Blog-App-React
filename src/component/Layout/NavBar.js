@@ -4,6 +4,10 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
 export default function NavBar({ logout, props }) {
   const nav = useNavigate();
+  var user = JSON.parse(localStorage.getItem("usersSignup"))
+  var logingUser = JSON.parse(localStorage.getItem("LoginUser"))
+  console.log(user);
+  console.log(logingUser);
 
   function handelLogOut() {
     logout();
@@ -17,19 +21,22 @@ export default function NavBar({ logout, props }) {
   return (
     <div>
       <h1 style={{ color: "darkmagenta" }}>Blog Application</h1>
-      <h4 style={{ color: "darkmagenta", backgroundColor: "rgb(233 178 240)" }}>
-        User Panel
+      <h5 style={{ color: "darkmagenta", backgroundColor: "rgb(233 178 240)" }}>
+       
+      
+     User Id:  {logingUser.loginUser_id}    Welcome....!!!
         <button
           onClick={handelLogOut}
           className="btn btn-light"
-          style={{marginLeft: "50%",
-          color: "darkmagenta",
-          borderColor: "darkmagenta",
-         }}
+          style={{
+            marginLeft: "50%",
+            color: "darkmagenta",
+            borderColor: "darkmagenta",
+          }}
         >
           Log Out
         </button>
-      </h4>
+      </h5>
       <div
         style={{
           display: "flex",
@@ -45,11 +52,19 @@ export default function NavBar({ logout, props }) {
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
             }}
+            to="/blogs"
+          >
+            All Blogs
+          </NavLink>
+          {/* <NavLink
+            style={({ isActive }) => {
+              return { color: isActive ? "red" : "" };
+            }}
             to="/myblog"
           >
             My Blogs
-          </NavLink>
-          || ||
+          </NavLink> */}
+          {/* || ||
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
@@ -58,16 +73,8 @@ export default function NavBar({ logout, props }) {
           >
             Add Blog
           </NavLink>
+          || || */}
           || ||
-          <NavLink
-            style={({ isActive }) => {
-              return { color: isActive ? "red" : "" };
-            }}
-            to="/blogs"
-          >
-            All Blogs
-          </NavLink>
-          {/* || ||
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
@@ -75,7 +82,7 @@ export default function NavBar({ logout, props }) {
             to="/profile"
           >
             My Profile
-          </NavLink> */}
+          </NavLink>
         </nav>
       </div>
 

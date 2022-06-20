@@ -6,9 +6,9 @@ import { options } from "../Options";
 
 const BlogList = ({ item, remItem, updateItem }) => {
   const [search, setSearch] = useState("");
-  let blogsAllArr = JSON.parse(localStorage.getItem("BlogList")) || [];
+  // let blogsAllArr = JSON.parse(localStorage.getItem("BlogList")) || [];
 
-  console.log(blogsAllArr);
+  // console.log(blogsAllArr);
   return (
     <div>
       {item.map((i) => {

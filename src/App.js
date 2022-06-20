@@ -56,9 +56,9 @@ function App() {
         {user1 && (
           <Route path="/" element={<NavBar logout={() => setUser(false)} />}>
             <Route path="/blogs" element={<Blogs />} />
-            <Route path="/myblog" element={<MyBlog />} />
+            {/* <Route path="/myblog" element={<MyBlog />} />
             <Route path="/edit-blog/:id" element={<MyBlog />} />
-            <Route path="/add-blog" element={<AddBlog />} />
+            <Route path="/add-blog" element={<AddBlog />} /> */}
             <Route path="/profile" element={<MyProfile />} />
           </Route>
         )}
@@ -66,7 +66,7 @@ function App() {
           <Route path="/admin" element={<AdminNavBar adminlogout={() => setUser(false)} />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="blogs" element={<AdminBlog />} />
-            <Route path="edit-blog/:id" element={<MyBlog />} />
+            <Route path="edit-blog/:id" element={<AdminBlog />} />
             <Route path="addblog" element={<AdminAddBlog />} />
             <Route path="users" element={<Users />} />
           </Route>
