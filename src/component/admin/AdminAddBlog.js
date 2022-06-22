@@ -20,6 +20,7 @@ const AdminAddBlog = () => {
 
   let userData = localStorage.getItem("usersSignup", "user_id");
   let userArr = JSON.parse(userData);
+  
   // let obj = userArr.find((o) => o.user_id);
 
   // let obj = userArr.find((o, i) => {
@@ -33,6 +34,7 @@ const AdminAddBlog = () => {
     label: `${item.email}`,
     value: `${item.email}`,
   }));
+
  // console.log(stateArray);
 
   //const userOptions = stateArray
@@ -52,6 +54,7 @@ const AdminAddBlog = () => {
   function handleAddBlog(e) {
     e.preventDefault();
     console.log("handle Submit...!", name, desc, category , userListId);
+
     // let blogsArr = JSON.parse(localStorage.getItem("BlogList")) || [];
 
     let AllBlogsArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
@@ -127,6 +130,7 @@ const AdminAddBlog = () => {
       setDesc("");
       setUserListId("");
       navigate("/admin/blogs");
+
     }
   }
   //   useEffect(()=>{

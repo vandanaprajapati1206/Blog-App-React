@@ -10,7 +10,7 @@ const BlogList = ({ item, remItem, updateItem }) => {
 
   // console.log(blogsAllArr);
   return (
-    <div>
+    <div className="blog">
       {item.map((i) => {
         console.log("bloglist....!");
         const { id, title, desc, category } = i;

@@ -3,6 +3,7 @@ import UsersList from "./UsersList";
 
 export default function Users() {
   let userData = JSON.parse(localStorage.getItem("usersSignup"));
+  
   // let category = userData.interst;
 
   // var result = userData.filter(obj => {
@@ -10,7 +11,7 @@ export default function Users() {
   // })
   // const obj = Object.assign({}, category);
   // console.log(obj);
-  console.log("all user data", userData, userData.intrest);
+  // console.log("all user data", userData);
   // console.log(result);
   return (
     <section>

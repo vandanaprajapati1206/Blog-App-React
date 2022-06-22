@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
-const AllBlog = ({ item, updateItem, remItem }) => {
+const AllBlog = ({ item, updateItem, remItem, blogLikeArr }) => {
   const [search, setSearch] = useState("");
   // const [blogData, setList] = useState(getAllBlogsLocalStorage());
 
@@ -34,7 +34,9 @@ const AllBlog = ({ item, updateItem, remItem }) => {
           }
         })
         .map((i) => {
-          const { id, name, desc, category ,userListId} = i;
+          const { id, name, desc, category ,userListId, blogLikeArr } = i;
+          let blogLike = JSON.parse(localStorage.getItem("TotalLike")) || [];
+
           return (
             <div className="blog">
               <article key={id}>
@@ -52,7 +54,7 @@ const AllBlog = ({ item, updateItem, remItem }) => {
                     return <li key={idx}>{d.label}</li>;
                   })}
                 </p>
-                <p>Total Like : {}</p>
+                <p>Total Like : {blogLike.count}</p>
                 <div>
               <Link to={`/admin/edit-blog/${id}`}>
                 <button

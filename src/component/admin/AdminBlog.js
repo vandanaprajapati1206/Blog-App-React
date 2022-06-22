@@ -27,7 +27,8 @@ export default function AdminBlog() {
     label: `${item.email}`,
     value: `${item.email}`,
   }));
-  
+  let blogLikeArr = JSON.parse(localStorage.getItem("TotalLike")) || [];
+console.log(blogLikeArr.count);
   function handleEditBlog(e) {
     e.preventDefault();
     console.log("handle Submit...!", name, desc, category, userListId);
@@ -185,7 +186,7 @@ export default function AdminBlog() {
             
         {blogData.length > 0 && (
         <div>
-         <AllBlog item={blogData} remItem={remItem} updateItem={updateItem} />
+         <AllBlog item={blogData} remItem={remItem} updateItem={updateItem} blogLikeArr={blogLikeArr}/>
         </div>
       )}    
       </section>

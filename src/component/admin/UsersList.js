@@ -4,9 +4,7 @@ import getLocalStorageSignUp from "../LogIn/getLocalStorageSignUp";
 import "./admin.css";
 
 const UsersList = ({ item }) => {
-  const [list, setList] = useState("");
   const [search, setSearch] = useState("");
-
   return (
     <div style={{ borderColor: "darkseagreen" }}>
       <div>
@@ -40,15 +38,13 @@ const UsersList = ({ item }) => {
                 user_id,
                 email,
                 gender,
-                category,
                 name,
                 phone,
                 role,
                 desc,
               } = i;
               return (
-                <div className="question">
-                <article key={user_id}>
+                <article key={user_id} className="question">
                   <tr style={{ color: "ActiveBorder" }}>
                     Name :<th style={{ color: "Green" }}>{name}</th>
                   </tr>
@@ -76,7 +72,7 @@ const UsersList = ({ item }) => {
               return (<li key={idx}>{d.label}</li>)
             })}</p> */}
                 </article>
-              </div>
+          
               );
             })}
         </tbody>
