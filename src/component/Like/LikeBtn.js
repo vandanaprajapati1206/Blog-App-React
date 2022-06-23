@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import getAllBlogsLocalStorage from "../Blogs/getAllBlogsLocalStorage";
-import getLikeLocalStorage from "./getLikeLocalStorage";
 
 const LikeBtn = () => {
   const [like, setLike] = useState(0);
   const [disLike, setDisLike] = useState(0);
   const [toggle, setToggle] = useState(false);
-  const [list, setList] = useState(getLikeLocalStorage());
 
   //let likeArr = JSON.parse(localStorage.getItem("TotalLike")) || [];
   let blogArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
@@ -20,10 +17,9 @@ const LikeBtn = () => {
   // });
   // console.log(Blogs);
 
-
-
   // let blogId = blogArr[0].title;
   // console.log(blogId);
+
   let olddata = JSON.parse(localStorage.getItem("LoginUser"));
   let email = olddata.emaillog;
 
@@ -42,13 +38,11 @@ const LikeBtn = () => {
         setToggle(true);
         setLike(like + 1);
         setDisLike(disLike - 1);
-
         const LikeCount = {
           count: like + 1,
-          countId: new Date().getTime().toString(),
           email, blogTitle
         };
-        localStorage.setItem("TotalLike", JSON.stringify(LikeCount));
+     
       }
     }
   }
@@ -65,21 +59,17 @@ const LikeBtn = () => {
         setToggle(false);
         // setDisLike(disLike + 1);
         setLike(like - 1);
-        const DisLikeCount = {
-          countId: new Date().getTime().toString(),
-          count: like - 1,
-        };
+        // const DisLikeCount = {
+        //   count: like - 1,
+        // };
         const DisLike={
-          email, blogTitle, DisLikeCount
+          email, blogTitle
         }
-        localStorage.setItem("TotalLike", JSON.stringify(DisLike));
       }
     }
   }
-
-  useEffect(() => {
-    localStorage.setItem("TotalLike", JSON.stringify(list));
-  }, [list]);
+var a= localStorage.getItem("TotalLike")
+console.log(a);
 
   // function toggleButton(e) {
   //   e.preventDefault();

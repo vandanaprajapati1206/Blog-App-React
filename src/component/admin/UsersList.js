@@ -4,7 +4,9 @@ import getLocalStorageSignUp from "../LogIn/getLocalStorageSignUp";
 import "./admin.css";
 
 const UsersList = ({ item }) => {
+  
   const [search, setSearch] = useState("");
+
   return (
     <div style={{ borderColor: "darkseagreen" }}>
       <div>
@@ -72,7 +74,6 @@ const UsersList = ({ item }) => {
               return (<li key={idx}>{d.label}</li>)
             })}</p> */}
                 </article>
-          
               );
             })}
         </tbody>

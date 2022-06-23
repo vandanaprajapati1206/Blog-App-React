@@ -6,7 +6,7 @@ export default function AdminNavBar({ adminlogout, props }) {
   function handelLogOut() {
     adminlogout();
     nav("/");
-    localStorage.removeItem("AdminLogin")
+    localStorage.removeItem("LoginUser")
     sessionStorage.removeItem("LogInEmail");
     sessionStorage.removeItem("LogInPassword");
   }

@@ -119,7 +119,7 @@ export default function Login({ auth }) {
         emaillog,
         passwordlog,
       };
-      localStorage.setItem("AdminLogin", JSON.stringify(adminData));
+      localStorage.setItem("LoginUser", JSON.stringify(adminData));
       sessionStorage.setItem("LogInEmail", emaillog);
       sessionStorage.setItem("LogInPassword", passwordlog);
       console.log("Admin Saved in Session Storage");

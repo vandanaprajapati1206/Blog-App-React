@@ -170,7 +170,7 @@ export default function Blogs() {
       )}
 
       <hr />
-      <h2 style={{ color: "darkmagenta" }}>My Blog List</h2>
+      <h2 style={{ color: "darkmagenta" }}>My Saved Blog List</h2>
       <hr />
 
       {list.length > 0 && (

@@ -6,7 +6,7 @@ export default function NavBar({ logout, props }) {
   const nav = useNavigate();
   var user = JSON.parse(localStorage.getItem("usersSignup"))
   var logingUser = JSON.parse(localStorage.getItem("LoginUser"))
-  console.log(user);
+  //console.log(user);
   console.log(logingUser);
 
   function handelLogOut() {
@@ -55,16 +55,16 @@ export default function NavBar({ logout, props }) {
             to="/blogs"
           >
             All Blogs
-          </NavLink>
-          {/* <NavLink
+          </NavLink>|| ||
+          <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
             }}
             to="/myblog"
           >
             My Blogs
-          </NavLink> */}
-          {/* || ||
+          </NavLink> 
+           || ||
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
@@ -73,7 +73,7 @@ export default function NavBar({ logout, props }) {
           >
             Add Blog
           </NavLink>
-          || || */}
+  
           || ||
           <NavLink
             style={({ isActive }) => {

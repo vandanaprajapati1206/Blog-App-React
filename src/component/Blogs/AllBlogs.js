@@ -1,14 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import getLocalStorage from "./getLocalStorage";
 import LikeBtn from "../Like/LikeBtn";
 import getAllBlogsLocalStorage from "./getAllBlogsLocalStorage";
 import "../admin/admin.css";
-import getLikeLocalStorage from "../Like/getLikeLocalStorage";
+import { func } from "prop-types";
+import Like from "../Like/Like";
+import Button from "../Like/Button";
 
-const AllBlogs = ({ item }) => {
+const AllBlogs = ({ item,like }) => {
   const [search, setSearch] = useState("");
   const blogList = getAllBlogsLocalStorage();
-  console.log("BlogList", blogList);
+  //console.log("BlogList", blogList);
+
+  // var stateArray = blogList.map((item, i) => ({
+  //   id: `${item.id}`,
+  // }));
+  // console.log(stateArray);
+
+
+  // var blkstr = {};
+  // $.each(blogList, function(idx2,val2) {
+  //   var str = idx2 + ":" + val2;
+  //   blkstr.push(str);
+  // });
+  // console.log(blkstr.join(", "));
+
+  // const blogs = Object.entries(blogList);
+
+  // const blogs = Object.keys(blogList);
+  // const blogs = Object.toString(blogList);
+  // console.log(blogs);
+
+  
+  let olddata = JSON.parse(localStorage.getItem("LoginUser"));
+  let email = olddata.emaillog;
+ // console.log("Email: ", olddata, email);
+
+  //let likeArr = JSON.parse(localStorage.getItem("TotalLike")) || [];
+  let blogArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
+  //console.log(blogArr);
+
+  // function filter(array, value, key) {
+  //   return array.filter(
+  //     key
+  //       ? (a) => a[key] === value
+  //       : (a) => Object.keys(a).some((k) => a[k] === value)
+  //   );
+  // }
+  // console.log(filter(blogArr, 'id'));
+
+  // function filterIt(arr, name) {
+  //   return arr.filter(obj => Object.keys(obj)
+  //     .map(key => obj[key].includes(name)));
+  // }
+  // console.log("blogTitle", );
+
+  //  let Blogs = blogArr.find((obj) => {
+  //   return (
+  //     obj.title === blogArr[0].title
+  //   );
+  // });
+  // console.log(Blogs);
+
+  // let blogId = blogArr[0].title;
+  // console.log(blogId);
+
+  //console.log(blogArr);
+
 
   // for (const key in blogList) {
   //   if (blogList.hasOwnProperty(key)) {
@@ -29,10 +87,6 @@ const AllBlogs = ({ item }) => {
   // })
   // console.log(a);
 
-  let olddata = JSON.parse(localStorage.getItem("LoginUser"));
-  let email = olddata.emaillog;
-  console.log("Email: ", olddata, email);
-
   // console.log(blogList[4].userListId);
 
   // let blogs = blogList.map(function(d,idx){
@@ -51,58 +105,58 @@ const AllBlogs = ({ item }) => {
   // });
   // console.log(Blogs);
 
-  const [like, setLike] = useState(0);
-  const [disLike, setDisLike] = useState(0);
-  const [toggle, setToggle] = useState(false);
-  const [list, setList] = useState(getLikeLocalStorage());
+  // const [like, setLike] = useState(0);
+  // const [disLike, setDisLike] = useState(0);
+  // const [toggle, setToggle] = useState(false);
+  // const [list, setList] = useState(getLikeLocalStorage());
 
-  //let likeArr = JSON.parse(localStorage.getItem("TotalLike")) || [];
-  let blogArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
-  let usersArr = JSON.parse(localStorage.getItem("LoginUser")) || [];
-  let blogLike = JSON.parse(localStorage.getItem("TotalLike")) || [];
-  console.log(blogArr);
-  console.log(like, disLike);
+  // //let likeArr = JSON.parse(localStorage.getItem("TotalLike")) || [];
+  // let blogArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
+  // let usersArr = JSON.parse(localStorage.getItem("LoginUser")) || [];
+  // let blogLike = JSON.parse(localStorage.getItem("TotalLike")) || [];
+  // console.log(blogArr);
+  // console.log(like, disLike);
 
-  function likef() {
-    console.log("Liked", like);
-    if (toggle) {
-      setToggle(false);
-      setLike(like - 1);
-    } else {
-      setToggle(true);
-      setLike(like + 1);
-      if (!toggle) {
-        setToggle(true);
-        setLike(like + 1);
-        setDisLike(disLike - 1);
+  // function likef() {
+  //   console.log("Liked", like);
+  //   if (toggle) {
+  //     setToggle(false);
+  //     setLike(like - 1);
+  //   } else {
+  //     setToggle(true);
+  //     setLike(like + 1);
+  //     if (!toggle) {
+  //       setToggle(true);
+  //       setLike(like + 1);
+  //       setDisLike(disLike - 1);
 
-        const LikeCount = {
-           id: new Date().getTime().toString(),count: like + 1,
-          email,
-        };
+  //       const LikeCount = {
+  //          id: new Date().getTime().toString(),count: like + 1,
+  //         email,
+  //       };
 
-  
-        blogLike.push(LikeCount);
-        localStorage.setItem("TotalLike", JSON.stringify(LikeCount));
-      }
-    }
-  }
+  //       blogLike.push(LikeCount);
+  //       localStorage.setItem("TotalLike", JSON.stringify(LikeCount));
+  //     }
+  //   }
+  // }
 
-  function dislikef() {
-    console.log("DisLiked", disLike);
-    if (toggle) {
-      setToggle(false);
-      setDisLike(disLike + 1);
-    } else {
-      setToggle(true);
-      setDisLike(like + 1);
-      if (!toggle) {
-        setToggle(false);
-        setDisLike(disLike + 1);
-        setLike(like - 1);
-      }
-    }
-  }
+  // function dislikef() {
+  //   console.log("DisLiked", disLike);
+  //   if (toggle) {
+  //     setToggle(false);
+  //     setDisLike(disLike + 1);
+  //   } else {
+  //     setToggle(true);
+  //     setDisLike(like + 1);
+  //     if (!toggle) {
+  //       setToggle(false);
+  //       setDisLike(disLike + 1);
+  //       setLike(like - 1);
+  //     }
+  //   }
+  // }
+
 
   return (
     <div>
@@ -115,7 +169,6 @@ const AllBlogs = ({ item }) => {
         <br />
       </div>
       <br />
-
       {item
         .filter((blog) => {
           if (search === "") {
@@ -124,7 +177,7 @@ const AllBlogs = ({ item }) => {
             return item;
           }
         })
-        .map((i) => {
+        .map((i,k) => {
           const { id, name, desc, category } = i;
           return (
             <article key={id} className="blog">
@@ -136,7 +189,9 @@ const AllBlogs = ({ item }) => {
                   return <li key={idx}>{d.label}</li>;
                 })}
               </p>
-              <LikeBtn/>
+              {/* <Button/> */}
+              {/* <LikeBtn/> */}
+              <Like addlike={like} id={id} likes={item.likes} k={k}/>
             </article>
           );
         })}

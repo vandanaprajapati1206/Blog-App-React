@@ -23,12 +23,12 @@ export default function AdminBlog() {
 
   let userData = localStorage.getItem("usersSignup", "user_id");
   let userArr = JSON.parse(userData);
+
   var stateArray = userArr.map((item, i) => ({
     label: `${item.email}`,
     value: `${item.email}`,
   }));
-  let blogLikeArr = JSON.parse(localStorage.getItem("TotalLike")) || [];
-console.log(blogLikeArr.count);
+
   function handleEditBlog(e) {
     e.preventDefault();
     console.log("handle Submit...!", name, desc, category, userListId);
@@ -37,7 +37,13 @@ console.log(blogLikeArr.count);
       setList(
         blogData.map((i) => {
           if (i.id === editId) {
-            return { ...i, title: name,desc: desc, category :category , userListId: userListId};
+            return {
+              ...i,
+              title: name,
+              desc: desc,
+              category: category,
+              userListId: userListId,
+            };
           }
           return i;
         })
@@ -45,7 +51,7 @@ console.log(blogLikeArr.count);
       setName("");
       setDesc("");
       setCategory("");
-      setUserListId("")
+      setUserListId("");
       setEditId(null);
       setIsEdit(false);
       showAlert(true, "success", "Update Item");
@@ -64,20 +70,19 @@ console.log(blogLikeArr.count);
     setName(selectedItem.name);
     setDesc(selectedItem.desc);
     setCategory(selectedItem.category);
-    setUserListId(selectedItem.userListId)
+    setUserListId(selectedItem.userListId);
   };
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
- 
- 
+
   useEffect(() => {
-    localStorage.setItem("AllBlogs", JSON.stringify(blogData)); 
-  }, [blogData]);  
- 
+    localStorage.setItem("AllBlogs", JSON.stringify(blogData));
+  }, [blogData]);
+
   return (
-       <section>
-         {isEdit && (
+    <section>
+      {isEdit && (
         <form onSubmit={handleEditBlog}>
           {alert.show && <Alert {...alert} remAlert={showAlert} />}
           <table
@@ -129,27 +134,27 @@ console.log(blogLikeArr.count);
                   <Select
                     options={options}
                     isMulti={true}
-                    value={options.find(obj=>obj.value === category)}
+                    value={options.find((obj) => obj.value === category)}
                     // _default={options.map(({ label }) => label)}
                     onChange={setCategory}
                   />
                 </th>
               </tr>
               <tr>
-              <th>
-                <label>Assign User </label>
-              </th>
-              <th>:</th>
-              <th>
-                <Select
-                  isMulti={true}
-                  options={stateArray}
-                  value={stateArray.find(obj=>obj.value === userListId)}
-                  // _default={stateArray.map(({ label }) => label)}
-                  onChange={setUserListId}
-                />
-              </th>
-            </tr>
+                <th>
+                  <label>Assign User </label>
+                </th>
+                <th>:</th>
+                <th>
+                  <Select
+                    isMulti={true}
+                    options={stateArray}
+                    value={stateArray.find((obj) => obj.value === userListId)}
+                    // _default={stateArray.map(({ label }) => label)}
+                    onChange={setUserListId}
+                  />
+                </th>
+              </tr>
               <tr>
                 <th></th>
               </tr>
@@ -164,14 +169,12 @@ console.log(blogLikeArr.count);
               </tr>
               <tr>
                 <th colSpan={3}>
-              
-                    <button
-                      type="submit"
-                      style={{ color: "white", backgroundColor: "#8b008b" }}
-                    >
-                      Edit Blog
-                    </button>
-                  
+                  <button
+                    type="submit"
+                    style={{ color: "white", backgroundColor: "#8b008b" }}
+                  >
+                    Edit Blog
+                  </button>
                 </th>
                 <th></th>
               </tr>
@@ -183,13 +186,16 @@ console.log(blogLikeArr.count);
       <hr />
       <h2 style={{ color: "darkmagenta" }}>Blog List</h2>
       <hr />
-            
-        {blogData.length > 0 && (
-        <div>
-         <AllBlog item={blogData} remItem={remItem} updateItem={updateItem} blogLikeArr={blogLikeArr}/>
-        </div>
-      )}    
-      </section>
 
+      {blogData.length > 0 && (
+        <div>
+          <AllBlog
+            item={blogData}
+            remItem={remItem}
+            updateItem={updateItem}
+          />
+        </div>
+      )}
+    </section>
   );
 }

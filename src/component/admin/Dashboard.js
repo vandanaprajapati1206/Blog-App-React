@@ -36,7 +36,6 @@ export default function Dashboard() {
       <hr />
       <h2 style={{ color: "darkmagenta" }}>Dashboard</h2>
       <hr />
-
       <h3 style={{ color: "darkblue" }}>Total Blog : {blogData.length} </h3>
       <h3 style={{ color: "darkblue" }}>Total User : {userData.length}</h3>
     </div>

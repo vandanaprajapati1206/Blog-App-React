@@ -10,32 +10,30 @@ const AdminAddBlog = () => {
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
   const [userListId, setUserListId] = useState("");
-  const [category, setCategory] = useState("none");
+  const [category, setCategory] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
-  const [count, setCount] = useState(0);
+  const [like, setLike] = useState(0);
 
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const navigate = useNavigate();
 
+  let AllBlogsArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
+  console.log(AllBlogsArr);
+
   let userData = localStorage.getItem("usersSignup", "user_id");
   let userArr = JSON.parse(userData);
-  
-  // let obj = userArr.find((o) => o.user_id);
-
-  // let obj = userArr.find((o, i) => {
-  //   if (o.user_id === '') {
-  //     userArr[i] = { user_id: ''};
-  //       return true;
-  //   }
-  // });
 
   var stateArray = userArr.map((item, i) => ({
     label: `${item.email}`,
     value: `${item.email}`,
   }));
+  let blogsArr = JSON.parse(localStorage.getItem("BlogList")) || [];
 
- // console.log(stateArray);
+  // var userID = userArr.map((item, i) => ({
+  //   userID: `${item.id}`
+  // }));
+  // console.log(stateArray);
 
   //const userOptions = stateArray
 
@@ -53,12 +51,8 @@ const AdminAddBlog = () => {
 
   function handleAddBlog(e) {
     e.preventDefault();
-    console.log("handle Submit...!", name, desc, category , userListId);
-
+    console.log("handle Submit...!", name, desc, category, userListId);
     // let blogsArr = JSON.parse(localStorage.getItem("BlogList")) || [];
-
-    let AllBlogsArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
-
     if (!name && !desc && !category) {
       showAlert(
         true,
@@ -77,6 +71,8 @@ const AdminAddBlog = () => {
       showAlert(true, "danger", " Description Requierd..!");
     } else if (!category) {
       showAlert(true, "danger", " Category Requierd..!");
+    } else if (!userListId) {
+      showAlert(true, "danger", " Users Requierd..!");
     } else if (name && desc && category && isEdit) {
       setList(
         list.map((i) => {
@@ -87,7 +83,6 @@ const AdminAddBlog = () => {
               desc,
               category,
               userListId,
-              count
             };
           }
           return i;
@@ -96,31 +91,19 @@ const AdminAddBlog = () => {
       setName("");
       setDesc("");
       setCategory("");
-      setUserListId("")
+      setUserListId("");
       setEditId(null);
       setIsEdit(false);
       showAlert(true, "success", "Update Item");
     } else {
       showAlert(true, "success", "Item Added To List");
-      
-      // const newBlog = {
-      //   id: new Date().getTime().toString(),
-      //   name,
-      //   desc,
-      //   category,
-      //   userListId,
-      // };
-
-      // blogsArr.push(newBlog);
-      // localStorage.setItem("BlogList", JSON.stringify(blogsArr));
-
       const AllBlogs = {
         id: new Date().getTime().toString(),
         name,
         desc,
         category,
         userListId,
-        count 
+        likes :[]
       };
 
       AllBlogsArr.push(AllBlogs);
@@ -130,7 +113,6 @@ const AdminAddBlog = () => {
       setDesc("");
       setUserListId("");
       navigate("/admin/blogs");
-
     }
   }
   //   useEffect(()=>{
@@ -143,7 +125,6 @@ const AdminAddBlog = () => {
 
   return (
     <section>
-     
       <hr />
       <h2 style={{ color: "darkmagenta" }}>Add Blog</h2>
       <hr />
