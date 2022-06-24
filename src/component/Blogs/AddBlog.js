@@ -22,14 +22,14 @@ const AddBlog = () => {
 
   let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
   let add_Blog_userid = loginUserId.loginUser_id;
-  console.log(add_Blog_userid)
+  //console.log(add_Blog_userid)
   
   function handleAddBlog(e) {
     e.preventDefault();
     console.log("handle Submit...!", name, desc, category);
     let blogsArr = JSON.parse(localStorage.getItem("BlogList")) || [];
 
-    let AllBlogsArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
+    // let AllBlogsArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
 
     if (!name && !desc && !category) {
       showAlert(
@@ -83,28 +83,13 @@ const AddBlog = () => {
 
       blogsArr.push(newBlog);
       localStorage.setItem("BlogList", JSON.stringify(blogsArr));
-
-      const AllBlogs = {
-        id: new Date().getTime().toString(),
-        name,
-         desc,
-         category,
-        add_Blog_userid,
-        date: new Date().getDate().toString(),
-      };
-
-      AllBlogsArr.push(AllBlogs);
-      localStorage.setItem("AllBlogs", JSON.stringify(AllBlogsArr));
-
       setName("");
       setCategory("");
       setDesc("");
       navigate("/myblog");
     }
   }
-  //   useEffect(()=>{
-  //     localStorage.setItem('BlogList', JSON.stringify(list))
-  // },[list]);
+
 
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });

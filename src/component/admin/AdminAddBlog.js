@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Alert from "../Alert";
 import Select from "react-select";
 import { options } from "../Options";
@@ -13,8 +13,6 @@ const AdminAddBlog = () => {
   const [category, setCategory] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(null);
-  const [like, setLike] = useState(0);
-
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const navigate = useNavigate();
 
@@ -28,7 +26,7 @@ const AdminAddBlog = () => {
     label: `${item.email}`,
     value: `${item.email}`,
   }));
-  let blogsArr = JSON.parse(localStorage.getItem("BlogList")) || [];
+
 
   // var userID = userArr.map((item, i) => ({
   //   userID: `${item.id}`
@@ -97,6 +95,7 @@ const AdminAddBlog = () => {
       showAlert(true, "success", "Update Item");
     } else {
       showAlert(true, "success", "Item Added To List");
+      
       const AllBlogs = {
         id: new Date().getTime().toString(),
         name,
@@ -107,7 +106,9 @@ const AdminAddBlog = () => {
       };
 
       AllBlogsArr.push(AllBlogs);
+      // localStorage.setItem("LikeBlog", JSON.stringify(AllBlogsArr));
       localStorage.setItem("AllBlogs", JSON.stringify(AllBlogsArr));
+    
       setName("");
       setCategory("");
       setDesc("");

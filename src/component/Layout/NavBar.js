@@ -55,7 +55,8 @@ export default function NavBar({ logout, props }) {
             to="/blogs"
           >
             All Blogs
-          </NavLink>|| ||
+          </NavLink>
+          {/* || ||
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
@@ -73,8 +74,8 @@ export default function NavBar({ logout, props }) {
           >
             Add Blog
           </NavLink>
-  
-          || ||
+  */}
+          || || 
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };

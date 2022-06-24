@@ -49,7 +49,7 @@ export default function Blogs() {
     const selectedItem = list.find((i) => i.id === id);
     setIsEdit(true);
     setEditId(id);
-    setName(selectedItem.title);
+    setName(selectedItem.name);
     setDesc(selectedItem.desc);
     setCategory(selectedItem.category);
   };

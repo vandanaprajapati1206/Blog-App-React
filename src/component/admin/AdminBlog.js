@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import getAllBlogsLocalStorage from "../Blogs/getAllBlogsLocalStorage";
 import { options } from "../Options";
+import { getLikeStorage } from "../Storage/getLikeStorage";
 import AllBlog from "./AllBlog";
 
 export default function AdminBlog() {
@@ -17,9 +18,9 @@ export default function AdminBlog() {
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const nav = useNavigate();
 
-  // useEffect(() => {
-  //   localStorage.getItem("AllBlogs", JSON.stringify(blogData));
-  // }, [blogData]);
+  useEffect(() => {
+    localStorage.getItem("AllBlogs", JSON.stringify(blogData));
+  }, [blogData]);
 
   let userData = localStorage.getItem("usersSignup", "user_id");
   let userArr = JSON.parse(userData);
@@ -39,10 +40,10 @@ export default function AdminBlog() {
           if (i.id === editId) {
             return {
               ...i,
-              title: name,
-              desc: desc,
-              category: category,
-              userListId: userListId,
+              name,
+               desc,
+               category,
+               userListId,
             };
           }
           return i;

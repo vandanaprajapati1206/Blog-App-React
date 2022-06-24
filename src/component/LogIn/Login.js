@@ -23,12 +23,12 @@ export default function Login({ auth }) {
     let oldArr = JSON.parse(olddata);
     
     let User_verify = oldArr.find((obj) => {
-      console.log(
-        "matched..User",
-        obj.password === passwordlog &&
-          obj.email === emaillog &&
-          obj.role === "User"
-      );
+      // console.log(
+      //   "matched..User",
+      //   obj.password === passwordlog &&
+      //     obj.email === emaillog &&
+      //     obj.role === "User"
+      // );
       return (
         obj.password === passwordlog &&
         obj.email === emaillog &&
@@ -37,12 +37,12 @@ export default function Login({ auth }) {
     });
 
     let admin_verify = oldArr.find((obj) => {
-      console.log(
-        "matched..Admin",
-        obj.password === passwordlog &&
-          obj.email === emaillog &&
-          obj.role === "Admin"
-      );
+      // console.log(
+      //   "matched..Admin",
+      //   obj.password === passwordlog &&
+      //     obj.email === emaillog &&
+      //     obj.role === "Admin"
+      // );
       return (
         obj.password === passwordlog &&
         obj.email === emaillog &&
@@ -83,7 +83,7 @@ export default function Login({ auth }) {
       console.log("EMPTY", !emaillog || !passwordlog);
     } else if (!User_verify) {
       showAlert(true, "danger", "Wrong Email and Password");
-      console.log("Worng Email and password", !User_verify);
+     // console.log("Worng Email and password", !User_verify);
     }else {
       console.log("Sign In Done...", User_verify);
       setEmaillog();
@@ -110,7 +110,7 @@ export default function Login({ auth }) {
 
       sessionStorage.setItem("LogInEmail", emaillog);
       sessionStorage.setItem("LogInPassword", passwordlog);
-      console.log("Saved in Session Storage");
+    //  console.log("Saved in Session Storage");
       setBlog(!blog);
       navigate("/blogs");
     }
@@ -122,7 +122,7 @@ export default function Login({ auth }) {
       localStorage.setItem("LoginUser", JSON.stringify(adminData));
       sessionStorage.setItem("LogInEmail", emaillog);
       sessionStorage.setItem("LogInPassword", passwordlog);
-      console.log("Admin Saved in Session Storage");
+    //  console.log("Admin Saved in Session Storage");
       navigate("/admin");
     }
   }

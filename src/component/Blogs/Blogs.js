@@ -1,31 +1,46 @@
 import React, { useEffect, useState } from "react";
+import { getLikeStorage } from "../Storage/getLikeStorage";
 import AllBlogs from "./AllBlogs";
 import getAllBlogsLocalStorage from "./getAllBlogsLocalStorage";
 
 export default function Blogs() {
   const [list, setList] = useState(getAllBlogsLocalStorage());
+  const [likeList, setLikeList] = useState(getLikeStorage);
 
-  useEffect(() => {
-    localStorage.setItem("AllBlogs", JSON.stringify(list));
-  }, [list]);
+  let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
+  let userid = loginUserId.loginUser_id;
 
-  const addlike = (k, id) => {
-    console.log(k, id);
+  let AlllikeBlogs = JSON.parse(localStorage.getItem("AllLikeBlogs"));
+  console.log("AlllikeBlogs", AlllikeBlogs);
+
+  // const addBlog = (i, props) => {
+  //   let blogs = list[i];
+  //   console.log(blogs);
+  //   blogs.LikeBlogs.push(props.item);
+  //   setList(blogs);
+  // };
+  // console.log(list);
+  // const LikeBlogs = [];
+  // LikeBlogs.push(list);
+  // localStorage.setItem("AllLikeBlogs", JSON.stringify(LikeBlogs));
+
+  const addlike = (k) => {
     let item = list[k];
-    console.log(item);
-    item.likes.push(id);
+    console.log("Like item",k,  item, userid);
+    item.likes.push(userid);
     console.log(item);
     setList(item);
   };
 
-  const dislike = (k, id) => {
-    console.log(k, id);
-    let item = list[k];
+  const removelike = (i) => {
+    console.log(i);
+    let item = likeList[i];
+    console.log("Removed item", item);
+    item.likes.pop(userid);
     console.log(item);
-    item.likes.splice(id);
-    console.log(item);
-    setList(item);
+    setLikeList(item);
   };
+
   return (
     <section>
       <hr />
@@ -33,7 +48,7 @@ export default function Blogs() {
       <hr />
       {list.length > 0 && (
         <div>
-          <AllBlogs item={list} like={addlike} />
+          <AllBlogs item={list} like={addlike} dislike={removelike} />
         </div>
       )}
     </section>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import getLocalStorage from "./getLocalStorage";
 import LikeBtn from "../Like/LikeBtn";
 import getAllBlogsLocalStorage from "./getAllBlogsLocalStorage";
@@ -6,17 +6,18 @@ import "../admin/admin.css";
 import { func } from "prop-types";
 import Like from "../Like/Like";
 import Button from "../Like/Button";
-
-const AllBlogs = ({ item,like }) => {
+let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
+let userid = loginUserId.loginUser_id;
+const AllBlogs = ({ item, like, dislike }) => {
   const [search, setSearch] = useState("");
-  const blogList = getAllBlogsLocalStorage();
+
+  // const blogList = getAllBlogsLocalStorage();
   //console.log("BlogList", blogList);
 
   // var stateArray = blogList.map((item, i) => ({
   //   id: `${item.id}`,
   // }));
   // console.log(stateArray);
-
 
   // var blkstr = {};
   // $.each(blogList, function(idx2,val2) {
@@ -31,13 +32,14 @@ const AllBlogs = ({ item,like }) => {
   // const blogs = Object.toString(blogList);
   // console.log(blogs);
 
-  
-  let olddata = JSON.parse(localStorage.getItem("LoginUser"));
-  let email = olddata.emaillog;
- // console.log("Email: ", olddata, email);
+  // let olddata = JSON.parse(localStorage.getItem("LoginUser"));
+  // let email = olddata.emaillog;
+  // console.log("Email: ", olddata, email);
 
   //let likeArr = JSON.parse(localStorage.getItem("TotalLike")) || [];
-  let blogArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
+
+  //let blogArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
+
   //console.log(blogArr);
 
   // function filter(array, value, key) {
@@ -66,7 +68,6 @@ const AllBlogs = ({ item,like }) => {
   // console.log(blogId);
 
   //console.log(blogArr);
-
 
   // for (const key in blogList) {
   //   if (blogList.hasOwnProperty(key)) {
@@ -157,7 +158,6 @@ const AllBlogs = ({ item,like }) => {
   //   }
   // }
 
-
   return (
     <div>
       <div>
@@ -173,11 +173,12 @@ const AllBlogs = ({ item,like }) => {
         .filter((blog) => {
           if (search === "") {
             return item;
-          } else if (blog.title.toLowerCase().includes(search.toLowerCase())) {
+          } else if (blog.name.toLowerCase().includes(search.toLowerCase())) {
             return item;
           }
+          return item;
         })
-        .map((i,k) => {
+        .map((i, k) => {
           const { id, name, desc, category } = i;
           return (
             <article key={id} className="blog">
@@ -189,9 +190,15 @@ const AllBlogs = ({ item,like }) => {
                   return <li key={idx}>{d.label}</li>;
                 })}
               </p>
-              {/* <Button/> */}
-              {/* <LikeBtn/> */}
-              <Like addlike={like} id={id} likes={item.likes} k={k}/>
+              
+              <Like
+                addlike={like}
+                id={userid}
+                likes={item.likes}
+                k={k}
+                removelike={dislike}
+                dislikes={item.dislikes}
+              />
             </article>
           );
         })}

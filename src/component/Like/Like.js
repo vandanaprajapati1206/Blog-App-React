@@ -3,6 +3,8 @@
 // import getLikeLocalStorage from "./getLikeLocalStorage";
 
 import { useEffect, useState } from "react";
+import { getLikeStorage } from "../Blogs/Blogs";
+import getAllBlogsLocalStorage from "../Blogs/getAllBlogsLocalStorage";
 
 // const Like = () => {
 //   const [liked, setLike] = useState(false);
@@ -41,25 +43,39 @@ import { useEffect, useState } from "react";
 
 function Like(props) {
   const [state, setState] = useState(true);
-  const [counter, setCounter] = useState(1);
+  // const [counter, setCounter] = useState(0);
+  // let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
+  // let userid = loginUserId.emaillog;
 
-  function toggle() {
-    setState(!state);
-    if (state === true) {
-      setCounter(counter + 1);
-    } else {
-      setCounter(counter - 1);
-    }
-  }
-  useEffect(() => {
-    setState()
-  }, []);
+
+  // function toggle() {
+  //   setState(!state);
+  //   if (state === true) {
+  //     props.addlike(props.k, props.userid);
+  //   } 
+  //   // if(!state === true)
+  //   // {
+  //   //   props.removeLike(props.k, props.userid);
+  //   // }
+  // }
+
+  // useEffect(() => {
+  //   console.log(state);
+  //   //localStorage.setItem('', JSON.stringify(list))
+  // // },[list]);
+  // }, [state]);
+
   return (
-    <div className="Favorite" onClick={()=>props.addlike(props.k,props.id)} id="clicks">
+    <div
+      className="Favorite"
+      onClick={() => props.addlike(props.k, props.userid)}
+      id="clicks"
+    >
       Like:
-      {counter}
+      {/* {counter} */}
       {state ? <span>♡</span> : <span>❤</span>}
     </div>
+    
   );
 }
 export default Like;

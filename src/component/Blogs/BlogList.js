@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import Select from "react-select";
-import { options } from "../Options";
+
 
 const BlogList = ({ item, remItem, updateItem }) => {
-  const [search, setSearch] = useState("");
-  // let blogsAllArr = JSON.parse(localStorage.getItem("BlogList")) || [];
-
-  // console.log(blogsAllArr);
   return (
     <div className="blog">
       {item.map((i) => {
         console.log("bloglist....!");
-        const { id, title, desc, category } = i;
+        const { id, name, desc, category } = i;
         return (
           <article key={id}>
             <br/>
-            <p style={{ color: "red" }}> Title: {title}</p>
+            <p style={{ color: "red" }}> Title: {name}</p>
             <p style={{ color: "blue" }}> Description : {desc}</p>
             <p style={{ color: "green" }}>
               Category :{" "}

@@ -29,7 +29,7 @@ import getAllBlogsLocalStorage from "../Blogs/getAllBlogsLocalStorage";
 
 export default function Dashboard() {
   let userData = JSON.parse(localStorage.getItem("usersSignup"));
-  const [blogData, setList] = useState(getAllBlogsLocalStorage());
+  const [blogData, setBlogData] = useState(getAllBlogsLocalStorage());
 
   return (
     <div>
