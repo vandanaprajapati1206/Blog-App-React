@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { getLikeStorage } from "../Storage/getLikeStorage";
 import AllBlogs from "./AllBlogs";
-import getAllBlogsLocalStorage from "./getAllBlogsLocalStorage";
+import getAllBlogsLocalStorage from "../Storage/getAllBlogsLocalStorage";
 
 export default function Blogs() {
   const [list, setList] = useState(getAllBlogsLocalStorage());
   const [likeList, setLikeList] = useState(getLikeStorage);
-
+ 
+  let a = list.length < 0;
+  
   let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
-  let userid = loginUserId.loginUser_id;
+  let userid = loginUserId.emaillog;
 
-  let AlllikeBlogs = JSON.parse(localStorage.getItem("AllLikeBlogs"));
-  console.log("AlllikeBlogs", AlllikeBlogs);
-
+  // let AlllikeBlogs = JSON.parse(localStorage.getItem("AllLikeBlogs"));
+  // console.log("AlllikeBlogs", AlllikeBlogs);
   // const addBlog = (i, props) => {
   //   let blogs = list[i];
   //   console.log(blogs);
@@ -26,30 +27,40 @@ export default function Blogs() {
 
   const addlike = (k) => {
     let item = list[k];
-    console.log("Like item",k,  item, userid);
+    console.log("Like ID:", k, "like Iteam: ", item, "User ID: ", userid);
     item.likes.push(userid);
-    console.log(item);
+    // console.log(item);
     setList(item);
   };
 
-  const removelike = (i) => {
-    console.log(i);
-    let item = likeList[i];
-    console.log("Removed item", item);
+  const removelike = (j) => {
+    console.log(j);
+    let item = list[j];
+    console.log("UnLike ID:", j, "like Iteam: ", item, "User ID: ", userid);
     item.likes.pop(userid);
-    console.log(item);
-    setLikeList(item);
+    setList(item);
   };
+
+  useEffect(() => {
+    localStorage.setItem("AllBlogs", JSON.stringify(list));
+  }, [list]);
+
+  useEffect(() => {
+    localStorage.setItem("AllLikeBlogs", JSON.stringify(likeList));
+  }, [likeList]);
 
   return (
     <section>
       <hr />
       <h2 style={{ color: "darkmagenta" }}>Blog List</h2>
       <hr />
-      {list.length > 0 && (
+
+      {!a ? (
         <div>
           <AllBlogs item={list} like={addlike} dislike={removelike} />
         </div>
+      ) : (
+        <h2>Threre is no one Blogs </h2>
       )}
     </section>
   );

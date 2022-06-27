@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
-import getLocalStorage from "./getLocalStorage";
+import React, {  useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Alert from "../Alert";
 import Select from "react-select";
 import { options } from "../Options";
+import getLocalStorage from "../Storage/getLocalStorage";
 
 const AddBlog = () => {
   const [list, setList] = useState(getLocalStorage());
@@ -22,8 +22,7 @@ const AddBlog = () => {
 
   let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
   let add_Blog_userid = loginUserId.loginUser_id;
-  //console.log(add_Blog_userid)
-  
+    
   function handleAddBlog(e) {
     e.preventDefault();
     console.log("handle Submit...!", name, desc, category);

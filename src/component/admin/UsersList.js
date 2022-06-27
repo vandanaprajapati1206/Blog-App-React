@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import getLocalStorageSignUp from "../LogIn/getLocalStorageSignUp";
+import React, { useState } from "react";
 import "./admin.css";
 
 const UsersList = ({ item }) => {

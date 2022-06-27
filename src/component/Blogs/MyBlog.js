@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import Alert from "../Alert";
 import { options } from "../Options";
+import getLocalStorage from "../Storage/getLocalStorage";
 import BlogList from "./BlogList";
-import getLocalStorage from "./getLocalStorage";
 
 export default function Blogs() {
   

@@ -1,11 +1,11 @@
 import { Alert } from "bootstrap";
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import getAllBlogsLocalStorage from "../Blogs/getAllBlogsLocalStorage";
+import getAllBlogsLocalStorage from "../Storage/getAllBlogsLocalStorage";
 import { options } from "../Options";
-import { getLikeStorage } from "../Storage/getLikeStorage";
 import AllBlog from "./AllBlog";
+import BlankBlogs from "./BlankBlogs";
 
 export default function AdminBlog() {
   const [blogData, setList] = useState(getAllBlogsLocalStorage());
@@ -17,10 +17,6 @@ export default function AdminBlog() {
   const [editId, setEditId] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
   const nav = useNavigate();
-
-  useEffect(() => {
-    localStorage.getItem("AllBlogs", JSON.stringify(blogData));
-  }, [blogData]);
 
   let userData = localStorage.getItem("usersSignup", "user_id");
   let userArr = JSON.parse(userData);
@@ -41,9 +37,9 @@ export default function AdminBlog() {
             return {
               ...i,
               name,
-               desc,
-               category,
-               userListId,
+              desc,
+              category,
+              userListId,
             };
           }
           return i;
@@ -79,6 +75,10 @@ export default function AdminBlog() {
 
   useEffect(() => {
     localStorage.setItem("AllBlogs", JSON.stringify(blogData));
+  }, [blogData]);
+  
+  useEffect(() => {
+    localStorage.getItem("AllBlogs", JSON.stringify(blogData));
   }, [blogData]);
 
   return (
@@ -188,14 +188,12 @@ export default function AdminBlog() {
       <h2 style={{ color: "darkmagenta" }}>Blog List</h2>
       <hr />
 
-      {blogData.length > 0 && (
+      {blogData.length > 0 ? (
         <div>
-          <AllBlog
-            item={blogData}
-            remItem={remItem}
-            updateItem={updateItem}
-          />
+          <AllBlog item={blogData} remItem={remItem} updateItem={updateItem} />
         </div>
+      ) : (
+        <BlankBlogs />
       )}
     </section>
   );

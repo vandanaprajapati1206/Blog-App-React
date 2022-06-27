@@ -25,7 +25,7 @@
 // }
 
 import React, { useState } from "react";
-import getAllBlogsLocalStorage from "../Blogs/getAllBlogsLocalStorage";
+import getAllBlogsLocalStorage from "../Storage/getAllBlogsLocalStorage";
 
 export default function Dashboard() {
   let userData = JSON.parse(localStorage.getItem("usersSignup"));

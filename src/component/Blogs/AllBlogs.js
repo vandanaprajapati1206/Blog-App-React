@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import getLocalStorage from "./getLocalStorage";
-import LikeBtn from "../Like/LikeBtn";
-import getAllBlogsLocalStorage from "./getAllBlogsLocalStorage";
 import "../admin/admin.css";
-import { func } from "prop-types";
 import Like from "../Like/Like";
-import Button from "../Like/Button";
+
 let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
 let userid = loginUserId.loginUser_id;
 const AllBlogs = ({ item, like, dislike }) => {
@@ -171,12 +167,11 @@ const AllBlogs = ({ item, like, dislike }) => {
       <br />
       {item
         .filter((blog) => {
-          if (search === "") {
+          if (search === " ") {
             return item;
           } else if (blog.name.toLowerCase().includes(search.toLowerCase())) {
             return item;
-          }
-          return item;
+          }return item;
         })
         .map((i, k) => {
           const { id, name, desc, category } = i;
@@ -190,14 +185,12 @@ const AllBlogs = ({ item, like, dislike }) => {
                   return <li key={idx}>{d.label}</li>;
                 })}
               </p>
-              
               <Like
                 addlike={like}
                 id={userid}
                 likes={item.likes}
                 k={k}
                 removelike={dislike}
-                dislikes={item.dislikes}
               />
             </article>
           );

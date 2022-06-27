@@ -1,5 +1,5 @@
 const getLocalStorage = () => {
-  let list = localStorage.getItem("BlogList");
+  let list = localStorage.getItem("BlogListLike");
 
     if (list) {
       return JSON.parse(list);

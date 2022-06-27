@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "../Alert";
 import Select from "react-select";
 import { options } from "../Options";
-import getLocalStorage from "../Blogs/getLocalStorage";
+import getLocalStorage from "../Storage/getLocalStorage";
 
 const AdminAddBlog = () => {
   const [list, setList] = useState(getLocalStorage());

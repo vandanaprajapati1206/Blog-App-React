@@ -7,7 +7,7 @@ const AllBlog = ({ item, updateItem, remItem }) => {
   return (
     <div>
       <div>
-        <span>Search by Title: </span>
+        <span>Search by Title And Description : </span>
         <input
           placeholder="Search Title"
           onChange={(e) => setSearch(e.target.value)}
@@ -20,6 +20,8 @@ const AllBlog = ({ item, updateItem, remItem }) => {
           if (search === "") {
             return item;
           } else if (blog.name.toLowerCase().includes(search.toLowerCase())) {
+            return item;
+          } else if (blog.desc.toLowerCase().includes(search.toLowerCase())) {
             return item;
           }
         })
@@ -42,7 +44,7 @@ const AllBlog = ({ item, updateItem, remItem }) => {
                     return <li key={idx}>{d.label}</li>;
                   })}
                 </p>
-                <p>Total Like : {likes.length}</p>
+                <p>Total Like : {likes.length} Likes</p>
                 <div>
                   <Link to={`/admin/edit-blog/${id}`}>
                     <button
