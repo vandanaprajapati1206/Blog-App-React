@@ -12,16 +12,16 @@ export default function AdminNavBar({ adminlogout, props }) {
   }
   return (
     <div>
-      <h1 style={{ color: "darkmagenta" }}>Blog Application</h1>
-      <h4 style={{ color: "darkmagenta", backgroundColor: "rgb(233 178 240)" }}>
+      <h1 style={{ color: "#412db2" }}>Blog Application</h1>
+      <h4 style={{ color: "#412db2", backgroundColor: "rgb(212 205 239)" }}>
         Admin Panel
         <button
           onClick={handelLogOut}
           className="btn btn-light"
           style={{
             marginLeft: "50%",
-            color: "darkmagenta",
-            borderColor: "darkmagenta",
+            color: "#412db2",
+            borderColor: "#412db2",
           }}
         >
           Log Out
@@ -33,7 +33,7 @@ export default function AdminNavBar({ adminlogout, props }) {
           flexDirection: "row",
           height: "20px",
           margin: "20px",
-          backgroundColor: "#fad0ff",
+          backgroundColor: "rgb(212 205 239)",
           justifyContent: "center",
         }}
       >

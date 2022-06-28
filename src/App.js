@@ -53,7 +53,7 @@ function App() {
        
           <Route path="/contact-us" element={<Contact />} />
         </Route>
-        {user1 && (
+        { user1 && (
           <Route path="/" element={<NavBar logout={() => setUser(false)} />}>
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/myblog" element={<MyBlog />} />

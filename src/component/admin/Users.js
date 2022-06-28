@@ -13,10 +13,11 @@ export default function Users() {
   // console.log(obj);
   // console.log("all user data", userData);
   // console.log(result);
+  
   return (
     <section>
       <hr />
-      <h2 style={{ color: "darkmagenta" }}>User List</h2>
+      <h2 style={{ color: "#412db2" }}>User List</h2>
       <hr />
       {userData.length > 0 && (
         <div>

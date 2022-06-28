@@ -171,7 +171,7 @@ export default function Login({ auth }) {
               />
               <br></br>
 
-              <Button variant="outline-success" size="lg" type="submit">
+              <Button variant="outline-primary" size="lg" type="submit">
                 Sign In
               </Button>
             </div>

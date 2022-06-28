@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getLikeStorage } from "../Storage/getLikeStorage";
 import AllBlogs from "./AllBlogs";
 import getAllBlogsLocalStorage from "../Storage/getAllBlogsLocalStorage";
 
 export default function Blogs() {
   const [list, setList] = useState(getAllBlogsLocalStorage());
-  const [likeList, setLikeList] = useState(getLikeStorage);
- 
+
   let a = list.length < 0;
-  
+
   let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
   let userid = loginUserId.emaillog;
 
@@ -26,35 +24,44 @@ export default function Blogs() {
   // localStorage.setItem("AllLikeBlogs", JSON.stringify(LikeBlogs));
 
   const addlike = (k) => {
-    let item = list[k];
+    const item = list;
+    item[k].likes.push(userid);
+    localStorage.setItem("AllBlogs", JSON.stringify(item));
     console.log("Like ID:", k, "like Iteam: ", item, "User ID: ", userid);
-    item.likes.push(userid);
-    // console.log(item);
-    setList(item);
   };
 
-  const removelike = (j) => {
-    console.log(j);
-    let item = list[j];
-    console.log("UnLike ID:", j, "like Iteam: ", item, "User ID: ", userid);
-    item.likes.pop(userid);
-    setList(item);
+  //   function filter_likes(filters) {
+  //     const likeId = [];
+  //     filters.forEach(val => {
+  //       likeId.push(...AllBlogs.filter(val => val.likes.includes(val)));
+  //     });
+  //     console.log(likeId);
+  // };
+
+  const removelike = (k) => {
+    let item = list;
+    const a = item[k].likes.find((val) => {
+      return val.likes !== userid;
+    });
+    console.log("find id", a);
+    if (a !== -1) item[k].likes.slice(a, 1);
+    console.log("UnLike ID:", k, "like Iteam: ", item, "User ID: ", userid);
+    localStorage.setItem("AllBlogs", JSON.stringify(item));
   };
 
   useEffect(() => {
     localStorage.setItem("AllBlogs", JSON.stringify(list));
   }, [list]);
 
-  useEffect(() => {
-    localStorage.setItem("AllLikeBlogs", JSON.stringify(likeList));
-  }, [likeList]);
+  // useEffect(() => {
+  //   localStorage.setItem("AllLikeBlogs", JSON.stringify(likeList));
+  // }, [likeList]);
 
   return (
     <section>
       <hr />
       <h2 style={{ color: "darkmagenta" }}>Blog List</h2>
       <hr />
-
       {!a ? (
         <div>
           <AllBlogs item={list} like={addlike} dislike={removelike} />

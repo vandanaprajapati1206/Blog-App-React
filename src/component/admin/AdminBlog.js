@@ -172,7 +172,7 @@ export default function AdminBlog() {
                 <th colSpan={3}>
                   <button
                     type="submit"
-                    style={{ color: "white", backgroundColor: "#8b008b" }}
+                    style={{ color: "midnightblue", backgroundColor: "rgb(212 205 239)" }}
                   >
                     Edit Blog
                   </button>
@@ -185,7 +185,7 @@ export default function AdminBlog() {
       )}
 
       <hr />
-      <h2 style={{ color: "darkmagenta" }}>Blog List</h2>
+      <h2 style={{ color: "#412db2" }}>Blog List</h2>
       <hr />
 
       {blogData.length > 0 ? (

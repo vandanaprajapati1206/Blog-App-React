@@ -35,9 +35,9 @@ export default function Signup({ auth }) {
       gender,
       role
     );
-    if (!email || !phone || !password) {
+    if (!email || !phone || !password ) {
       showAlert(true, "danger", " Email ,Phone and Password Requierd..!");
-    } else if (email && phone && password) {
+    } else if (email && phone && password && role) {
       let user_data = {
         user_id: new Date().getTime().toString(),
         email: email,

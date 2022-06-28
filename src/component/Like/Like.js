@@ -1,55 +1,12 @@
 import { useState } from "react";
-
-// const Like = () => {
-//   const [liked, setLike] = useState(false);
-//   const [disLike, setDisLike] = useState(true);
-//   const [list, setList] = useState(getLikeLocalStorage());
-
-//   let logData = JSON.parse(localStorage.getItem("LoginUser"));
-//   let email = logData.emaillog;
-
-//   let blogData = JSON.parse(localStorage.getItem("AllBlogs"));
-//  console.log(blogData);
-//   let blog = blogData.emaillog;
-
-//   useEffect(() => {
-//     localStorage.setItem("Like", JSON.stringify(list));
-//   }, [list]);
-
-//   function handleBtn(e) {
-//     e.preventDefault();
-//     console.log("Clicked..!");
-//     const LikesData = {
-//       liked: liked + 1,
-//       disLike: liked - 1,
-//       email,
-//       blog,
-//     };
-//     localStorage.setItem("Likes", JSON.stringify([LikesData]));
-//   }
-//   return (
-//     <div>
-//       <button onClick={handleBtn}>Like</button>
-//     </div>
-//   );
-// };
-// export default Like;
+import getAllBlogsLocalStorage from "../Storage/getAllBlogsLocalStorage";
 
 function Like(props) {
   const [state, setState] = useState(true);
-
+  const [list, setList] = useState(getAllBlogsLocalStorage());
+  let likeUserId = JSON.parse(localStorage.getItem("AllBlogs"));
+  let likeId = likeUserId.likes;
   // const [counter, setCounter] = useState(0);
-  // function toggle() {
-  //   setState(!state);
-  //   if (state === true) {
-  //     props.addlike(props.k, props.userid);
-  //   }
-  //   if (!state === true) {
-  //     props.removelike(props.j, props.userid);
-  //   }
-  // }
-  // console.log(toggle);
-
   // const handleLike = () => {
 
   //   let currentLike = props.likes;
@@ -92,47 +49,42 @@ function Like(props) {
   // // },[list]);
   // }, [state]);
 
+  function add() {
+    props.addlike(props.k, props.userid);
+  }
+  function remove() {
+    props.removelike(props.k, props.userid);
+  }
+  const user = (k) => {
+    let item = list;
+    const a = item[k].likes.find((val) => {
+      return val.likes !== likeId;
+    });
+    console.log(a);
+  };
+
+  function toggle() {
+    setState(!state);
+    if (state === true) {
+      console.log("add like");
+      add();
+    } else {
+      if (!user) {
+        setState(state === true);
+        console.log("add like1");
+        add();
+      } else {
+        setState(state === false);
+        console.log("remove like");
+        remove();
+      }
+    }
+  }
+
   return (
-    // <div
-    //   className="Favorite"
-    //   onClick={() => props.addlike(props.k, props.id)}
-    //   id="clicks"
-    // >
-    //   {state ? <span>♡ Like</span> : <span>❤ Liked</span>}
-    // </div>
-
-    <section>
-      
-      {/* <div
-        className="Favorite"
-        onClick={() => props.addlike(props.k, props.userid)}
-        id="clicks"
-      >
-        Like: 
-
-         {state ? <span>♡</span> : <span>❤</span>}
-      </div> */}
-
-      {!state ? (
-        <div
-          className="Favorite"
-          onClick={() => props.addlike(props.k, props.userid)}
-          id="clicks"
-        >
-          Like:
-          <span>♡</span>
-        </div>
-      ) : (
-        <div
-          className="Favorite"
-          onClick={() => props.removelike(props.i, props.userid)}
-          id="clicks"
-        >
-          Like:
-          <span>❤</span>
-        </div>
-      )}
-    </section>
+    <div className="Favorite" onClick={toggle} id="clicks">
+      {state ? <span>♡ Like</span> : <span>❤ Liked</span>}
+    </div>
   );
 }
 export default Like;

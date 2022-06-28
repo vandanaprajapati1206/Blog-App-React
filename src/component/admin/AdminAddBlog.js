@@ -4,6 +4,7 @@ import Alert from "../Alert";
 import Select from "react-select";
 import { options } from "../Options";
 import getLocalStorage from "../Storage/getLocalStorage";
+import { logDOM } from "@testing-library/react";
 
 const AdminAddBlog = () => {
   const [list, setList] = useState(getLocalStorage());
@@ -17,40 +18,33 @@ const AdminAddBlog = () => {
   const navigate = useNavigate();
 
   let AllBlogsArr = JSON.parse(localStorage.getItem("AllBlogs")) || [];
-  console.log(AllBlogsArr);
+  //console.log(AllBlogsArr);
 
   let userData = localStorage.getItem("usersSignup", "user_id");
   let userArr = JSON.parse(userData);
+//   let user = userArr.find((obj) => {
+//     return obj.role === "User";
+//   });
+//   console.log(user);
 
+//  let aa= userArr.find((obj)=>{
+//     let result  = obj.role === "User"
+//     if (result == null){
+//         return false;
+//     } else {
+//         return true
+//     }
+// });
+// console.log(aa);
+ // console.log(userArr);
   var stateArray = userArr.map((item, i) => ({
     label: `${item.email}`,
     value: `${item.email}`,
   }));
 
-
-  // var userID = userArr.map((item, i) => ({
-  //   userID: `${item.id}`
-  // }));
-  // console.log(stateArray);
-
-  //const userOptions = stateArray
-
-  // console.log(id);
-
-  // const obj = userArr.map((user_id, i) => {
-
-  //   console.log(userArr[i].user_id)
-  // });
-
-  // console.log(obj);
-  // let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
-  // let add_Blog_userid = loginUserId.loginUser_id;
-  // console.log(add_Blog_userid)
-
   function handleAddBlog(e) {
     e.preventDefault();
     console.log("handle Submit...!", name, desc, category, userListId);
-    // let blogsArr = JSON.parse(localStorage.getItem("BlogList")) || [];
     if (!name && !desc && !category) {
       showAlert(
         true,
@@ -95,20 +89,22 @@ const AdminAddBlog = () => {
       showAlert(true, "success", "Update Item");
     } else {
       showAlert(true, "success", "Item Added To List");
-      
+
       const AllBlogs = {
         id: new Date().getTime().toString(),
         name,
         desc,
         category,
         userListId,
-        likes :[]
+        likes: [],
       };
 
       AllBlogsArr.push(AllBlogs);
+      console.log(typeof AllBlogsArr);
       // localStorage.setItem("LikeBlog", JSON.stringify(AllBlogsArr));
       localStorage.setItem("AllBlogs", JSON.stringify(AllBlogsArr));
-    
+      // localStorage.setItem("AllLikeBlogs", JSON.stringify(AllBlogsArr));
+
       setName("");
       setCategory("");
       setDesc("");
@@ -127,9 +123,8 @@ const AdminAddBlog = () => {
   return (
     <section>
       <hr />
-      <h2 style={{ color: "darkmagenta" }}>Add Blog</h2>
+      <h2 style={{ color: "#412db2" }}>Add Blog</h2>
       <hr />
-
       <form onSubmit={handleAddBlog}>
         {alert.show && <Alert {...alert} remAlert={showAlert} />}
 
@@ -221,7 +216,7 @@ const AdminAddBlog = () => {
                   type="submit"
                   style={{
                     color: "midnightblue",
-                    backgroundColor: "#ffd2fd",
+                    backgroundColor: "rgb(212 205 239)",
                   }}
                 >
                   Add Blog

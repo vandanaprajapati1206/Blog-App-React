@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "../admin/admin.css";
 import Like from "../Like/Like";
 
-let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
-let userid = loginUserId.loginUser_id;
+// let loginUserId = JSON.parse(localStorage.getItem("LoginUser"));
+// let userid = loginUserId.loginUser_id;
 const AllBlogs = ({ item, like, dislike }) => {
   const [search, setSearch] = useState("");
 
@@ -167,11 +167,13 @@ const AllBlogs = ({ item, like, dislike }) => {
       <br />
       {item
         .filter((blog) => {
-          if (search === " ") {
+          if (search === "") {
             return item;
           } else if (blog.name.toLowerCase().includes(search.toLowerCase())) {
             return item;
-          }return item;
+          } else if (blog.desc.toLowerCase().includes(search.toLowerCase())) {
+            return item;
+          }
         })
         .map((i, k) => {
           const { id, name, desc, category } = i;
@@ -187,7 +189,7 @@ const AllBlogs = ({ item, like, dislike }) => {
               </p>
               <Like
                 addlike={like}
-                id={userid}
+                // id={userid}
                 likes={item.likes}
                 k={k}
                 removelike={dislike}
