@@ -26,8 +26,14 @@ export default function Blogs() {
   const addlike = (k) => {
     const item = list;
     item[k].likes.push(userid);
+
+    // let aa = item[k].likes.length;
+    // console.log("Total Length", aa);
+
     localStorage.setItem("AllBlogs", JSON.stringify(item));
-    console.log("Like ID:", k, "like Iteam: ", item, "User ID: ", userid);
+    console.log("Like ID:", k);
+    console.log("like Iteam: ", item);
+    console.log("User ID: ", userid);
   };
 
   //   function filter_likes(filters) {
@@ -40,22 +46,23 @@ export default function Blogs() {
 
   const removelike = (k) => {
     let item = list;
-    const a = item[k].likes.find((val) => {
-      return val.likes !== userid;
+    var a = item[k].likes;
+    var filtered = a.filter(function (value) {
+      return value === userid;
     });
-    console.log("find id", a);
-    if (a !== -1) item[k].likes.slice(a, 1);
-    console.log("UnLike ID:", k, "like Iteam: ", item, "User ID: ", userid);
+    let aa = item[k].likes.length;
+    console.log("Total Length", aa);
+    console.log(" Like List Filter", filtered);
+    a.pop(filtered);
+    console.log("UnLike ID:", k);
+    console.log("like Iteam: ", item);
+    console.log("User ID: ", userid);
     localStorage.setItem("AllBlogs", JSON.stringify(item));
   };
 
-  useEffect(() => {
-    localStorage.setItem("AllBlogs", JSON.stringify(list));
-  }, [list]);
-
   // useEffect(() => {
-  //   localStorage.setItem("AllLikeBlogs", JSON.stringify(likeList));
-  // }, [likeList]);
+  //   localStorage.setItem("AllBlogs", JSON.stringify(list));
+  // }, [list]);
 
   return (
     <section>

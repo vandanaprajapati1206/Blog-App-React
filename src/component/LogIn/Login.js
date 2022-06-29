@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./login.css";
+import '../Pages/page.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 import Alert from "../Alert";
@@ -21,7 +22,7 @@ export default function Login({ auth }) {
 
     let olddata = localStorage.getItem("usersSignup");
     let oldArr = JSON.parse(olddata);
-    
+
     let User_verify = oldArr.find((obj) => {
       // console.log(
       //   "matched..User",
@@ -83,8 +84,8 @@ export default function Login({ auth }) {
       console.log("EMPTY", !emaillog || !passwordlog);
     } else if (!User_verify) {
       showAlert(true, "danger", "Wrong Email and Password");
-     // console.log("Worng Email and password", !User_verify);
-    }else {
+      // console.log("Worng Email and password", !User_verify);
+    } else {
       console.log("Sign In Done...", User_verify);
       setEmaillog();
       setPasswordlog();
@@ -110,7 +111,7 @@ export default function Login({ auth }) {
 
       sessionStorage.setItem("LogInEmail", emaillog);
       sessionStorage.setItem("LogInPassword", passwordlog);
-    //  console.log("Saved in Session Storage");
+      //  console.log("Saved in Session Storage");
       setBlog(!blog);
       navigate("/blogs");
     }
@@ -122,7 +123,7 @@ export default function Login({ auth }) {
       localStorage.setItem("LoginUser", JSON.stringify(adminData));
       sessionStorage.setItem("LogInEmail", emaillog);
       sessionStorage.setItem("LogInPassword", passwordlog);
-    //  console.log("Admin Saved in Session Storage");
+      //  console.log("Admin Saved in Session Storage");
       navigate("/admin");
     }
   }
@@ -133,7 +134,7 @@ export default function Login({ auth }) {
 
   return (
     <div>
-      <h2> Sign In</h2>
+      <h2 className="heading"> Sign In</h2>
       {alert.show && <Alert {...alert} remAlert={showAlert} />}
       <div
         style={{
@@ -150,6 +151,7 @@ export default function Login({ auth }) {
               </label>
               <input
                 type="email"
+                style={{ width: "30%", margin: "auto" }}
                 className="form-control"
                 id="email"
                 name="email"
@@ -163,6 +165,7 @@ export default function Login({ auth }) {
               </label>
               <input
                 type="Password"
+                style={{ width: "30%", margin: "auto" }}
                 className="form-control"
                 id="password"
                 name="email"
@@ -171,7 +174,8 @@ export default function Login({ auth }) {
               />
               <br></br>
 
-              <Button variant="outline-primary" size="lg" type="submit">
+              <Button variant="outline-primary" 
+              size="xs" type="submit">
                 Sign In
               </Button>
             </div>

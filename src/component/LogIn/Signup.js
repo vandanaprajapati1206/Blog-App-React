@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import "./login.css";
+import '../Pages/page.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Alert from "../Alert";
 import { options } from "../Options";
-import { roles } from "./roles";
 
 export default function Signup({ auth }) {
   const [name, setName] = useState("");
@@ -35,9 +35,9 @@ export default function Signup({ auth }) {
       gender,
       role
     );
-    if (!email || !phone || !password ) {
+    if (!email || !phone || !password) {
       showAlert(true, "danger", " Email ,Phone and Password Requierd..!");
-    } else if (email && phone && password && role) {
+    } else if (email && phone && password ) {
       let user_data = {
         user_id: new Date().getTime().toString(),
         email: email,
@@ -115,7 +115,7 @@ export default function Signup({ auth }) {
 
   return (
     <div>
-      <h2> Sign Up</h2>
+      <h2 className="heading"> Sign Up</h2>
       {alert.show && <Alert {...alert} remAlert={showAlert} />}
 
       <div
@@ -130,6 +130,7 @@ export default function Signup({ auth }) {
             </label>
             <input
               type="text"
+              style={{ width: "40%", margin: "auto" }}
               onChange={(e) => setName(e.target.value)}
               className="form-control"
               id="name"
@@ -142,6 +143,7 @@ export default function Signup({ auth }) {
               Email
             </label>
             <input
+              style={{ width: "40%", margin: "auto" }}
               type="email"
               className="form-control"
               id="email"
@@ -155,6 +157,7 @@ export default function Signup({ auth }) {
               Phone No.
             </label>
             <input
+              style={{ width: "40%", margin: "auto" }}
               type="number"
               className="form-control"
               id="number"
@@ -167,12 +170,14 @@ export default function Signup({ auth }) {
             <label for="interst" className="form-label">
               Intrest
             </label>
-            <Select
-              options={options}
-              isMulti={true}
-              _default={options.map(({ label }) => label)}
-              onChange={setIntrest}
-            />
+            <div style={{ width: "400px", margin: "auto" }}>
+              <Select
+                options={options}
+                isMulti={true}
+                _default={options.map(({ label }) => label)}
+                onChange={setIntrest}
+              />
+            </div>
           </div>
 
           <div>
@@ -203,16 +208,15 @@ export default function Signup({ auth }) {
             <label for="description" className="form-label">
               Descriptions
             </label>
+            <br/>
             <textarea
               style={{
                 margin: "0px 0px",
-                padding: "20px",
-                height: "16px",
-                width: "100%",
+                padding: "12px",
+                height: "20px",
+                width: "40%",
                 margin: "0px auto",
               }}
-              // rows={5}
-              // cols={90}
               onChange={(e) => setDesc(e.target.value)}
             />
           </div>
@@ -222,6 +226,7 @@ export default function Signup({ auth }) {
               Password
             </label>
             <input
+              style={{ width: "40%", margin: "auto" }}
               type="password"
               className="form-control"
               id="password"
@@ -258,13 +263,11 @@ export default function Signup({ auth }) {
               options={roles}
             /> */}
           </div>
-          <br></br>
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit">Sign Up</Button> 
         </form>
       </div>
-
-      <nav>
-        <span>click here for </span>
+    < nav>
+        <span>Click Here For </span>
         <Link to="/login"> Sign In </Link>
       </nav>
     </div>

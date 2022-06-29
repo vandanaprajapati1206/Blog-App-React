@@ -1,9 +1,13 @@
-
-.form-label{
-    margin-right: 100px;
-    color: rgb(3, 3, 138);
+.form-label {
+  margin-right: 100px;
+  color: rgb(3, 3, 138);
+  margin: auto;
+  padding: 0.5%;
 }
 
-.form-control{
-color:darkmagenta;
+.form-control {
+  color: darkmagenta;
+  width: 30%;
+  margin: auto;
 }
+

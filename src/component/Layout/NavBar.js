@@ -1,6 +1,6 @@
 import { Button } from "bootstrap";
 import React from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import {  NavLink, Outlet, useNavigate } from "react-router-dom";
 
 export default function NavBar({ logout, props }) {
   const nav = useNavigate();
@@ -41,13 +41,16 @@ export default function NavBar({ logout, props }) {
         style={{
           display: "flex",
           flexDirection: "row",
-          height: "20px",
-          margin: "20px",
+          height: "50px",
+          margin: "50px",
           backgroundColor: "#fad0ff",
           justifyContent: "center",
         }}
       >
-        <nav>
+        <nav style={{
+          margintop: "20px",
+          marginblock: "auto"
+        }}>
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };

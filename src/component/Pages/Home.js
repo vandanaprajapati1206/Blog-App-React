@@ -1,12 +1,11 @@
 import React from "react";
-import Header from "../Layout/Header";
+import "./page.css";
 
 export default function Home() {
   return (
     <div>
-      <h2> Home Page</h2>
-      
-      <p>This is Home Page</p>
+      <h2 className="heading"> Home Page</h2>
+      <p className="paragraph">This is Home Page</p>
     </div>
   );
 }

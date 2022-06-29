@@ -6,14 +6,14 @@ export default function AdminNavBar({ adminlogout, props }) {
   function handelLogOut() {
     adminlogout();
     nav("/");
-    localStorage.removeItem("LoginUser")
+    localStorage.removeItem("LoginUser");
     sessionStorage.removeItem("LogInEmail");
     sessionStorage.removeItem("LogInPassword");
   }
   return (
     <div>
       <h1 style={{ color: "#412db2" }}>Blog Application</h1>
-      <h4 style={{ color: "#412db2", backgroundColor: "rgb(212 205 239)" }}>
+      <h4 style={{ color: "white", backgroundColor: "rgb(125 106 201)" }}>
         Admin Panel
         <button
           onClick={handelLogOut}
@@ -31,13 +31,13 @@ export default function AdminNavBar({ adminlogout, props }) {
         style={{
           display: "flex",
           flexDirection: "row",
-          height: "20px",
+          height: "50px",
           margin: "20px",
           backgroundColor: "rgb(212 205 239)",
           justifyContent: "center",
         }}
       >
-        <nav>
+        <nav style={{ margin: "auto" ,fontSize: '20px', fontStyle:'' }}>
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
@@ -63,7 +63,8 @@ export default function AdminNavBar({ adminlogout, props }) {
             to="/admin/blogs"
           >
             Blogs
-          </NavLink>|| ||
+          </NavLink>
+          || ||
           <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };

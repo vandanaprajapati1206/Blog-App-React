@@ -9,13 +9,14 @@ export default function Header() {
         style={{
           display: "flex",
           flexDirection: "row",
-          height: "20px",
+          height: "50px",
           margin: "20px",
           backgroundColor: "#fad0ff",
           justifyContent: "center",
         }}
       >
-        <nav>
+        <nav 
+        style={{ margin: "auto" ,fontSize: '20px', fontStyle:'' }}>
         <NavLink
             style={({ isActive }) => {
               return { color: isActive ? "red" : "" };
