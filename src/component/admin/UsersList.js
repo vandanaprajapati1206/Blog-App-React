@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./admin.css";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 const UsersList = ({ item }) => {
-  
   const [search, setSearch] = useState("");
 
   return (
@@ -42,9 +42,17 @@ const UsersList = ({ item }) => {
                 phone,
                 role,
                 desc,
+                category,
               } = i;
               return (
                 <article key={user_id} className="question">
+                  <button
+                  className="delete"
+                    type="button"
+                    onClick={() => user_id}
+                  >
+                    <FaTrash />
+                  </button>
                   <tr style={{ color: "ActiveBorder" }}>
                     Name :<th style={{ color: "Green" }}>{name}</th>
                   </tr>
@@ -63,9 +71,9 @@ const UsersList = ({ item }) => {
                   <tr>
                     Role : <th> {role} </th>
                   </tr>
-                  {/* <tr>
+                  <tr>
                     Intersted : <th>{category}</th>
-                  </tr> */}
+                  </tr>
 
                   {/*                    
                     <p style={{color: "green"}}>Category :{category.map(function(d,idx){

@@ -20,18 +20,6 @@ function Like(props) {
     });
   }
 
-  // function toggle() {
-  //   setState(!state);
-  //   if (state === true) {
-  //     console.log("ADD like");
-  //     add();
-  //   } else {
-  //    setState(state === false);
-  //       console.log("REMOVE like");
-  //       remove();
-  //   }
-  // }
-
   function toggle() {
     setState(false);
     if (!state) {

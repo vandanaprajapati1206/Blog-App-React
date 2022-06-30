@@ -4,7 +4,6 @@ import Alert from "../Alert";
 import Select from "react-select";
 import { options } from "../Options";
 import getLocalStorage from "../Storage/getLocalStorage";
-import { logDOM } from "@testing-library/react";
 
 const AdminAddBlog = () => {
   const [list, setList] = useState(getLocalStorage());
@@ -97,14 +96,11 @@ const AdminAddBlog = () => {
         category,
         userListId,
         likes: [],
+        comment: []
       };
-
       AllBlogsArr.push(AllBlogs);
       console.log(typeof AllBlogsArr);
-      // localStorage.setItem("LikeBlog", JSON.stringify(AllBlogsArr));
       localStorage.setItem("AllBlogs", JSON.stringify(AllBlogsArr));
-      // localStorage.setItem("AllLikeBlogs", JSON.stringify(AllBlogsArr));
-
       setName("");
       setCategory("");
       setDesc("");

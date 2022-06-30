@@ -8,7 +8,6 @@ export default function MyProfile() {
       <hr />
       <h2 style={{ color: "darkmagenta" }}>My Profile</h2>
       <hr />
-
       <div>
         Email : {logingUser.emaillog}
         <br />

@@ -26,7 +26,7 @@ const AllBlog = ({ item, updateItem, remItem }) => {
           }
         })
         .map((i) => {
-          const { id, name, desc, category, userListId, likes } = i;
+          const { id, name, desc, category, userListId, likes, comment } = i;
           return (
             <div className="blog">
               <article key={id}>
@@ -45,6 +45,17 @@ const AllBlog = ({ item, updateItem, remItem }) => {
                   })}
                 </p>
                 <p>Total Like : {likes.length} Likes</p>
+                <p>Total Comment : {comment.length} </p>
+                <p>
+                  Comment List :{" "}
+                  {comment.map(function (a, indx) {
+                    return (
+                      <li key={indx}>
+                        {a.userid} {a.comment}
+                      </li>
+                    );
+                  })}
+                </p>
                 <div>
                   <Link to={`/admin/edit-blog/${id}`}>
                     <button
@@ -56,6 +67,7 @@ const AllBlog = ({ item, updateItem, remItem }) => {
                       <FaEdit />
                     </button>
                   </Link>
+
                   <button type="button" onClick={() => remItem(id)}>
                     <FaTrash />
                   </button>

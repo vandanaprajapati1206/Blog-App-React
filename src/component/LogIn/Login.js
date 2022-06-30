@@ -24,12 +24,6 @@ export default function Login({ auth }) {
     let oldArr = JSON.parse(olddata);
 
     let User_verify = oldArr.find((obj) => {
-      // console.log(
-      //   "matched..User",
-      //   obj.password === passwordlog &&
-      //     obj.email === emaillog &&
-      //     obj.role === "User"
-      // );
       return (
         obj.password === passwordlog &&
         obj.email === emaillog &&
@@ -38,12 +32,6 @@ export default function Login({ auth }) {
     });
 
     let admin_verify = oldArr.find((obj) => {
-      // console.log(
-      //   "matched..Admin",
-      //   obj.password === passwordlog &&
-      //     obj.email === emaillog &&
-      //     obj.role === "Admin"
-      // );
       return (
         obj.password === passwordlog &&
         obj.email === emaillog &&
@@ -51,33 +39,6 @@ export default function Login({ auth }) {
       );
     });
 
-    // let roleVerify = oldArr.find((roles) => {
-    //   console.log("Role Admin", roles.role === "Admin");
-    //   return roles.role === "Admin";
-    // });
-
-    // let UserVerify = oldArr.find((roles) => {
-    //   console.log("Role User", roles.role === "User");
-    //   return roles.role === "User";
-    // });
-
-    // let adminid = "admin123@gmail.com";
-    // let adminpswd = "admin@123";
-    // if (emaillog === adminid && passwordlog === adminpswd) {
-    //   console.log(
-    //     "Admin Sign In Done...",
-    //     emaillog === adminid && passwordlog === adminpswd
-    //   );
-    //   const adminData = {
-    //     emaillog, passwordlog
-    //   }
-    //   localStorage.setItem("AdminLogin", JSON.stringify(adminData))
-
-    //   sessionStorage.setItem("LogInEmail", emaillog);
-    //   sessionStorage.setItem("LogInPassword", passwordlog);
-    //   console.log("Saved in Session Storage");
-    //   navigate("/admin");
-    // }
 
     if (!emaillog || !passwordlog) {
       showAlert(true, "danger", "EMPTY Email and Password");

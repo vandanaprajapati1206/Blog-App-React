@@ -65,10 +65,6 @@ export default function Blogs() {
     localStorage.setItem("BlogList", JSON.stringify(list)); 
   }, [list]);  
  
-  // useEffect(() => {
-  //   localStorage.setItem("AllBlogs", JSON.stringify(list));
-  // }, [list]);
-
   return (
     <section>
      

@@ -1,31 +1,6 @@
-// import React from "react";
-
-// type Props = {
-//   roleRequied: "ADMIN" | "USER",
-//   message: String,
-// };
-
-// const useRole = () => {
-//   let users: any;
-//   const _user = localStorage.getItem("login");
-//   if (_user) {
-//     users = JSON.parse(_user);
-//   }
-//   if (users) {
-//     return users.role
-//   } else {
-//     return 'USER'
-//   }
-// };
-
-// export default function Dashboard(props: Props) {
-//   const { roleRequied, message } = props;
-//   const role = useRole()
-//   return <div> Admin Dashboard</div>;
-// }
-
 import React, { useState } from "react";
 import getAllBlogsLocalStorage from "../Storage/getAllBlogsLocalStorage";
+import "./admin.css";
 
 export default function Dashboard() {
   let userData = JSON.parse(localStorage.getItem("usersSignup"));
@@ -36,8 +11,14 @@ export default function Dashboard() {
       <hr />
       <h2 style={{ color: "#412db2" }}>Dashboard</h2>
       <hr />
-      <h3 style={{ color: "darkblue" }}>Total Blog : {blogData.length} </h3>
-      <h3 style={{ color: "darkblue" }}>Total User : {userData.length}</h3>
+
+      <h3 style={{ color: "darkblue" }}>
+        <pre>
+          <div style={{ width: "100%" }}>
+            Total Blog : {blogData.length}          Total User : {userData.length}
+          </div>
+        </pre>
+      </h3>
     </div>
   );
 }
